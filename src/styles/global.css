@@ -2,31 +2,31 @@
 
 /* Silvermist Theme — Water Fairy (Premium Light) */
 :root {
-  --water-deep: #0c8ce9;
+  --water-deep: #0a6abf;
   --water-mid: #0c8ce9;
   --water-light: #3aacff;
-  --water-shimmer: #0c8ce910;
-  --water-mist: #dceefb;
-  --silver: #9ca3af;
-  --silver-light: #e5e7eb;
-  --fairy-glow: #edf4fa;
-  --accent-lavender: #0c8ce9;
-  --text-dark: #1f2937;
-  --text-light: #f9fafb;
+  --water-shimmer: #ffffff15;
+  --water-mist: #a7d3f3;
+  --silver: #f0f4f8;
+  --silver-light: #ffffff40;
+  --fairy-glow: #8ec5ed;
+  --accent-lavender: #0a6abf;
+  --text-dark: #0a2540;
+  --text-light: #ffffff;
 }
 
 @theme {
-  --color-water-deep: #0c8ce9;
+  --color-water-deep: #0a6abf;
   --color-water-mid: #0c8ce9;
   --color-water-light: #3aacff;
-  --color-water-shimmer: #0c8ce910;
-  --color-water-mist: #dceefb;
-  --color-silver: #9ca3af;
-  --color-silver-light: #e5e7eb;
-  --color-fairy-glow: #edf4fa;
-  --color-accent-lavender: #0c8ce9;
-  --color-text-dark: #1f2937;
-  --color-text-light: #f9fafb;
+  --color-water-shimmer: #ffffff15;
+  --color-water-mist: #a7d3f3;
+  --color-silver: #f0f4f8;
+  --color-silver-light: #ffffff40;
+  --color-fairy-glow: #8ec5ed;
+  --color-accent-lavender: #0a6abf;
+  --color-text-dark: #0a2540;
+  --color-text-light: #ffffff;
 }
 
 html {
@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  background: #dceefb;
+  background: linear-gradient(180deg, #a7d3f3 0%, #8ec5ed 50%, #7bb8e8 100%);
   color: var(--text-dark);
   min-height: 100vh;
 }

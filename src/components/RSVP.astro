@@ -2,7 +2,7 @@
 // RSVP form
 ---
 
-<section id="confirmar" class="py-20 px-6 bg-fairy-glow/50 backdrop-blur-sm">
+<section id="confirmar" class="py-20 px-6 bg-white/20 backdrop-blur-sm">
   <div class="max-w-xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Confirmar Asistencia</h2>
     <div class="flex items-center justify-center gap-4 mb-8">
@@ -22,7 +22,7 @@
           type="text"
           name="name"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/80 border border-silver-light/80 focus:border-water-mid focus:outline-none transition-colors text-water-deep"
+          class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:border-water-mid focus:outline-none transition-colors text-water-deep"
           placeholder="Tu nombre"
         />
       </div>
@@ -32,7 +32,7 @@
         <select
           name="guests"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/80 border border-silver-light/80 focus:border-water-mid focus:outline-none transition-colors text-water-deep"
+          class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:border-water-mid focus:outline-none transition-colors text-water-deep"
         >
           <option value="">Selecciona</option>
           <option value="1">1 persona</option>
@@ -48,13 +48,13 @@
         <div class="flex gap-4">
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="yes" required class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/80 border border-silver-light/80 text-center peer-checked:bg-water-mid peer-checked:text-white peer-checked:border-water-mid transition-all">
+            <div class="px-4 py-3 rounded-xl bg-white/90 border border-white/30 text-center peer-checked:bg-water-mid peer-checked:text-white peer-checked:border-water-mid transition-all">
               ¡Ahí estaré! ✨
             </div>
           </label>
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="no" class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/80 border border-silver-light/80 text-center peer-checked:bg-water-mid peer-checked:text-white peer-checked:border-water-mid transition-all">
+            <div class="px-4 py-3 rounded-xl bg-white/90 border border-white/30 text-center peer-checked:bg-water-mid peer-checked:text-white peer-checked:border-water-mid transition-all">
               No podré ir 😢
             </div>
           </label>
@@ -66,7 +66,7 @@
         <textarea
           name="message"
           rows="3"
-          class="w-full px-4 py-3 rounded-xl bg-white/80 border border-silver-light/80 focus:border-water-mid focus:outline-none transition-colors text-water-deep resize-none"
+          class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:border-water-mid focus:outline-none transition-colors text-water-deep resize-none"
           placeholder="Escribe un mensaje especial..."
         ></textarea>
       </div>
@@ -79,7 +79,7 @@
       </button>
     </form>
 
-    <div id="rsvp-success" class="hidden mt-8 p-6 rounded-2xl bg-white/80 border border-water-light">
+    <div id="rsvp-success" class="hidden mt-8 p-6 rounded-2xl bg-white/90 border border-water-light">
       <p class="text-2xl mb-2">✨</p>
       <p class="text-water-deep text-lg">¡Gracias por confirmar!</p>
       <p class="text-water-mid/60 text-sm mt-1">Te esperamos con mucha ilusión</p>
