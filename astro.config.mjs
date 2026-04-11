@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://zukiga.github.io',
-  base: '/xv-jimena',
+  base: 'xv-jimena',
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
