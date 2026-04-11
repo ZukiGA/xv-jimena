@@ -1,5 +1,5 @@
 ---
-// Timeline — clean, horizontal on desktop, vertical on mobile
+// Timeline — clean with subtle SVG dots
 ---
 
 <section id="programa" class="py-20 px-6">
@@ -13,21 +13,25 @@
 
     <div class="space-y-0">
       {[
-        { time: '2:00', label: 'PM', title: 'Ceremonia' },
-        { time: '7:00', label: 'PM', title: 'Recepción' },
-        { time: '8:00', label: 'PM', title: 'Cena' },
-        { time: '9:00', label: 'PM', title: 'Vals' },
-        { time: '9:30', label: 'PM', title: 'Cambio de Zapatilla' },
-        { time: '10:00', label: 'PM', title: 'Brindis' },
-        { time: '10:30', label: 'PM', title: 'Fiesta' },
+        { time: '2:00', label: 'PM', title: 'Ceremonia', icon: 'M12 2L8 6H4v4l-2 2 2 2v4h4l4 4 4-4h4v-4l2-2-2-2V6h-4L12 2z' },
+        { time: '7:00', label: 'PM', title: 'Recepción', icon: 'M8 21h8m-4-4v4M6 3h12l-1.5 9h-9L6 3z' },
+        { time: '8:00', label: 'PM', title: 'Cena', icon: 'M3 12h18M12 3v18M5.5 5.5l13 13M18.5 5.5l-13 13' },
+        { time: '9:00', label: 'PM', title: 'Vals', icon: 'M9 18V5l12-2v13M6 18a3 3 0 100-6 3 3 0 000 6zM18 16a3 3 0 100-6 3 3 0 000 6z' },
+        { time: '9:30', label: 'PM', title: 'Cambio de Zapatilla', icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' },
+        { time: '10:00', label: 'PM', title: 'Brindis', icon: 'M8 21h8m-4-4v4M6 3h12l-1.5 9h-9L6 3z' },
+        { time: '10:30', label: 'PM', title: 'Fiesta', icon: 'M9 18V5l12-2v13M6 18a3 3 0 100-6 3 3 0 000 6zM18 16a3 3 0 100-6 3 3 0 000 6z' },
       ].map((item) => (
         <div class="flex items-center py-4 border-b border-[#c0c0c0]/20 last:border-0">
           <div class="w-24 text-right pr-6">
             <span class="text-2xl font-light text-[#0a2540]">{item.time}</span>
             <span class="text-xs font-[Montserrat] text-[#0a2540]/40 ml-1">{item.label}</span>
           </div>
-          <div class="w-px h-6 bg-[#c0c0c0]/40"></div>
-          <p class="pl-6 text-lg text-[#0a2540]/80 font-light">{item.title}</p>
+          <div class="flex items-center justify-center w-8">
+            <svg class="w-4 h-4 text-[#c0c0c0]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+            </svg>
+          </div>
+          <p class="pl-4 text-lg text-[#0a2540]/80 font-light">{item.title}</p>
         </div>
       ))}
     </div>
