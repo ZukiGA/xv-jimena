@@ -28,8 +28,8 @@
 
       const heroRect = heroSection?.getBoundingClientRect();
       const rsvpRect = rsvpSection.getBoundingClientRect();
-      const pastHero = heroRect ? heroRect.bottom < 0 : true;
-      const rsvpVisible = rsvpRect.top < window.innerHeight;
+      const pastHero = heroRect ? heroRect.bottom < window.innerHeight * 0.3 : true;
+      const rsvpVisible = rsvpRect.top < window.innerHeight * 0.9;
 
       if (pastHero && !rsvpVisible) {
         cta.style.opacity = '1';
