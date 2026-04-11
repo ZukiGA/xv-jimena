@@ -19,7 +19,7 @@
   </div>
 
   <!-- TOP: Silvermist brand + personalized greeting -->
-  <div class="absolute top-8 left-0 right-0 z-10 px-6 animate-fade-in-up">
+  <div class="absolute top-8 left-0 right-0 z-10 px-6 hero-text" style="opacity: 0;">
     <div class="hidden mb-4" id="greeting-wrap">
       <p class="text-white/60 font-[Montserrat] text-xs tracking-[0.3em] uppercase">
         <span id="guest-name" class="text-white/80"></span>, estás invitada(o)
@@ -37,7 +37,7 @@
   </div>
 
   <!-- MIDDLE: Name + XV — positioned at 28% from top -->
-  <div class="absolute top-[17%] left-0 right-0 z-10 px-6 animate-fade-in-up" style="animation-delay: 0.3s">
+  <div class="absolute top-[17%] left-0 right-0 z-10 px-6 hero-text" style="opacity: 0;">
     <h1 class="text-7xl md:text-9xl font-light text-white mb-3 drop-shadow-lg text-reflection" data-text="Jimena">
       Jimena
     </h1>
@@ -45,7 +45,7 @@
   </div>
 
   <!-- BOTTOM: Date + Location + Scroll -->
-  <div class="absolute bottom-5 left-0 right-0 z-10 px-6 animate-fade-in-up" style="animation-delay: 0.6s">
+  <div class="absolute bottom-5 left-0 right-0 z-10 px-6 hero-text" style="opacity: 0;">
     <p class="text-white/90 font-[Montserrat] text-sm tracking-[0.25em]">
       25 · 07 · 2026
     </p>
@@ -62,3 +62,26 @@
     </div>
   </div>
 </section>
+
+<script>
+  // Show hero text after entrance is done (or immediately if already seen)
+  function showHeroText() {
+    document.querySelectorAll('.hero-text').forEach(el => {
+      (el as HTMLElement).style.opacity = '1';
+      (el as HTMLElement).style.transition = 'opacity 0.5s ease';
+    });
+  }
+
+  if (sessionStorage.getItem('xv-entrance-seen')) {
+    showHeroText();
+  } else {
+    // Wait for entrance to remove itself
+    const observer = new MutationObserver(() => {
+      if (!document.getElementById('magic-entrance')) {
+        showHeroText();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+</script>

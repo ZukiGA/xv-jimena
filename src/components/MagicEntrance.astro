@@ -6,13 +6,67 @@
 <div id="magic-entrance" class="fixed inset-0 z-[100]">
   <canvas id="entrance-canvas" class="absolute inset-0 w-full h-full"></canvas>
   
-  <!-- Skip hint — hidden initially, shows after 3s -->
-  <p id="ent-skip" class="absolute bottom-8 left-0 right-0 z-20 text-white/0 font-[Montserrat] text-[10px] tracking-[0.3em] uppercase text-center transition-opacity duration-700">
-    toca para continuar
-  </p>
+  <!-- Text overlay — same positions as Hero -->
+  <div class="absolute inset-0 pointer-events-none">
+    <!-- Silvermist — same as Hero top-8 -->
+    <div class="absolute top-8 left-0 right-0 z-10 px-6">
+      <div class="flex items-center justify-center gap-4 mb-3">
+        <span class="h-px w-10 bg-[#c0c0c0]/0 ent-fade" style="--d:1.8s"></span>
+        <span class="text-[#c0c0c0]/0 text-sm ent-fade" style="--d:1.8s">✧</span>
+        <span class="h-px w-10 bg-[#c0c0c0]/0 ent-fade" style="--d:1.8s"></span>
+      </div>
+      <p class="text-[#c0c0c0]/0 font-[Montserrat] text-xs tracking-[0.4em] uppercase ent-fade" style="--d:1.8s">
+        Silvermist
+      </p>
+    </div>
+
+    <!-- Jimena XV — same as Hero top-[17%] -->
+    <div class="absolute top-[17%] left-0 right-0 z-10 px-6 text-center">
+      <h1 class="text-7xl md:text-9xl font-light text-white/0 mb-3 drop-shadow-lg" style="font-family: 'Cormorant Garamond', serif;">
+        <span class="ent-letter" style="--i:0">J</span><span class="ent-letter" style="--i:1">i</span><span class="ent-letter" style="--i:2">m</span><span class="ent-letter" style="--i:3">e</span><span class="ent-letter" style="--i:4">n</span><span class="ent-letter" style="--i:5">a</span>
+      </h1>
+      <span class="text-2xl md:text-3xl font-[Montserrat] font-light text-white/0 tracking-[0.5em] ent-fade" style="--d:2.2s">
+        XV
+      </span>
+    </div>
+
+    <!-- Date — same as Hero bottom-5 -->
+    <div class="absolute bottom-5 left-0 right-0 z-10 px-6 text-center">
+      <p class="text-white/0 font-[Montserrat] text-sm tracking-[0.25em] ent-fade" style="--d:2.5s">
+        25 · 07 · 2026
+      </p>
+      <p class="text-white/0 font-[Montserrat] text-xs mt-2 tracking-wider ent-fade" style="--d:2.7s">
+        Santo Tomás Hueyotlipan, Puebla
+      </p>
+    </div>
+  </div>
 </div>
 
 <style>
+  .ent-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(8px);
+  }
+  .ent-letter.reveal {
+    animation: letterReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 0.1s);
+  }
+  @keyframes letterReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+  .ent-fade {
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ent-fade.show {
+    color: rgba(192, 192, 192, 0.8) !important;
+    background-color: rgba(192, 192, 192, 0.4) !important;
+  }
   #magic-entrance.fade-out {
     animation: entranceFadeOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
@@ -74,6 +128,14 @@
     let overlayAlpha = 1;
 
     function createImpact(x: number, y: number) {
+      // Trigger text reveals
+      setTimeout(() => {
+        document.querySelectorAll('.ent-letter').forEach(l => l.classList.add('reveal'));
+      }, 400);
+      setTimeout(() => {
+        document.querySelectorAll('.ent-fade').forEach(el => el.classList.add('show'));
+      }, 800);
+
       // Ripple waves
       for (let i = 0; i < 4; i++) {
         ripples.push({
