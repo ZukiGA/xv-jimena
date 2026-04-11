@@ -30,3 +30,13 @@
     </p>
   </div>
 </footer>
+
+<script>
+  // Update WhatsApp share link to include personalized URL if ?n= present
+  const wa = document.getElementById('whatsapp-share');
+  if (wa) {
+    const currentUrl = window.location.href.split('#')[0];
+    const msg = `¡Estás invitado(a) a los XV de Jimena! 🧚✨ 📅 25 de Julio 2026 📍 Salón El Carmen 💧 ${currentUrl}`;
+    wa.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(msg));
+  }
+</script>
