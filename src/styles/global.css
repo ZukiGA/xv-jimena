@@ -31,8 +31,8 @@
 
 html {
   scroll-behavior: smooth;
-  background: transparent;
   overscroll-behavior: none;
+  overflow: hidden;
 }
 
 body {
@@ -41,6 +41,8 @@ body {
   color: var(--text-dark);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 /* Water ripple animation */
