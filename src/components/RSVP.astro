@@ -88,6 +88,14 @@
 </section>
 
 <script>
+  // Pre-fill name from URL param
+  const params = new URLSearchParams(window.location.search);
+  const guestName = params.get('n');
+  if (guestName) {
+    const nameInput = document.querySelector('input[name="name"]') as HTMLInputElement;
+    if (nameInput) nameInput.value = decodeURIComponent(guestName.replace(/\+/g, ' '));
+  }
+
   document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
