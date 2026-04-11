@@ -264,41 +264,52 @@ const pageUrl = `${Astro.site}`;
         }
       });
       // Scroll reveal — animate sections on scroll
-      const sections = document.querySelectorAll('section');
-      sections.forEach(s => s.classList.add('reveal-section'));
+      function initScrollReveal() {
+        const allSections = document.querySelectorAll('section, footer');
+        allSections.forEach((s, i) => {
+          // Skip hero (first section)
+          if (i === 0) return;
+          s.classList.add('reveal-section');
+        });
 
-      // Insert scroll hint arrows between sections
-      sections.forEach((s, i) => {
-        if (i < sections.length - 1) {
-          const hint = document.createElement('div');
-          hint.className = 'scroll-hint text-center py-3';
-          hint.innerHTML = '<svg class="w-4 h-4 mx-auto text-[#c0c0c0]/30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"></path></svg>';
-          s.after(hint);
-        }
-      });
-
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            // Show hint arrow below this section
-            const hint = entry.target.nextElementSibling;
-            if (hint?.classList.contains('scroll-hint')) {
-              setTimeout(() => hint.classList.add('visible'), 400);
-            }
-            // Hide hint arrow above this section
-            const prevHint = entry.target.previousElementSibling;
-            if (prevHint?.classList.contains('scroll-hint')) {
-              prevHint.classList.add('passed');
-            }
+        // Insert scroll hint arrows between sections
+        const sections = Array.from(allSections);
+        sections.forEach((s, i) => {
+          if (i > 0 && i < sections.length - 1) {
+            const hint = document.createElement('div');
+            hint.className = 'scroll-hint text-center py-3';
+            hint.innerHTML = '<svg class="w-4 h-4 mx-auto" style="color:rgba(192,192,192,0.3)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"></path></svg>';
+            s.after(hint);
           }
         });
-      }, { threshold: 0.15 });
 
-      sections.forEach(s => revealObserver.observe(s));
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              const hint = entry.target.nextElementSibling;
+              if (hint?.classList.contains('scroll-hint')) {
+                setTimeout(() => hint.classList.add('visible'), 400);
+              }
+              const prevHint = entry.target.previousElementSibling;
+              if (prevHint?.classList.contains('scroll-hint')) {
+                prevHint.classList.add('passed');
+              }
+            }
+          });
+        }, { threshold: 0.1 });
 
-      // First section (hero) should be revealed immediately
-      sections[0]?.classList.add('revealed');
+        allSections.forEach((s, i) => {
+          if (i > 0) revealObserver.observe(s);
+        });
+      }
+
+      // Run after DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollReveal);
+      } else {
+        initScrollReveal();
+      }
     </script>
   </body>
 </html>
