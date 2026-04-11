@@ -103,7 +103,7 @@ const pageUrl = `${Astro.site}`;
     >
       🎵
     </button>
-    <div id="yt-player-wrap" class="fixed -top-[9999px] -left-[9999px] w-0 h-0 overflow-hidden">
+    <div id="yt-player-wrap" class="fixed bottom-20 right-6 z-50 hidden rounded-xl overflow-hidden shadow-2xl border border-[#c0c0c0]/30 bg-black/50 backdrop-blur-md">
       <div id="yt-player"></div>
     </div>
 
@@ -133,14 +133,22 @@ const pageUrl = `${Astro.site}`;
 
       (window as any).onYouTubeIframeAPIReady = () => {
         player = new (window as any).YT.Player('yt-player', {
-          height: '200',
-          width: '200',
+          height: '60',
+          width: '220',
           videoId: '8a2gCnF2Nq4',
-          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 0, origin: window.location.origin },
+          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 1, playsinline: 1, origin: window.location.origin },
           events: {
             onReady: () => console.log('YT player ready'),
             onStateChange: (e: any) => {
-              if (e.data === 0) player.playVideo(); // loop
+              if (e.data === 0) player.playVideo();
+              if (e.data === 1) { // playing
+                if (musicBtn) musicBtn.textContent = '🔇';
+                musicPlaying = true;
+              }
+              if (e.data === 2) { // paused
+                if (musicBtn) musicBtn.textContent = '🎵';
+                musicPlaying = false;
+              }
             },
             onError: (e: any) => console.error('YT error', e.data)
           }
@@ -148,15 +156,16 @@ const pageUrl = `${Astro.site}`;
       };
 
       musicBtn?.addEventListener('click', () => {
-        if (!player) return;
-        if (!musicPlaying) {
-          player.playVideo();
-          if (musicBtn) musicBtn.textContent = '🔇';
-          musicPlaying = true;
-        } else {
-          player.pauseVideo();
-          if (musicBtn) musicBtn.textContent = '🎵';
-          musicPlaying = false;
+        if (!playerWrap) return;
+        if (playerWrap.classList.contains('hidden')) {
+          playerWrap.classList.remove('hidden');
+          if (player && !musicPlaying) player.playVideo();
+        } else if (player) {
+          if (musicPlaying) {
+            player.pauseVideo();
+          } else {
+            player.playVideo();
+          }
         }
       });
 
