@@ -100,6 +100,94 @@ const pageUrl = `${Astro.site}xv-jimena/`;
           musicPlaying = false;
         }
       });
+
+      // Water drops animation
+      function createDrop() {
+        const drop = document.createElement('div');
+        drop.classList.add('water-drop');
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (3 + Math.random() * 4) + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(drop);
+        setTimeout(() => drop.remove(), 8000);
+      }
+      // Create drops periodically
+      setInterval(createDrop, 800);
+      for (let i = 0; i < 5; i++) setTimeout(createDrop, i * 300);
+
+      // Ripple on click
+      document.addEventListener('click', (e) => {
+        const ripple = document.createElement('div');
+        ripple.classList.add('ripple-effect');
+        ripple.style.left = e.clientX + 'px';
+        ripple.style.top = e.clientY + window.scrollY + 'px';
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 1000);
+      });
+
+      // Confetti on RSVP success
+      function launchConfetti() {
+        const colors = ['#3aacff', '#0c8ce9', '#ffffff', '#a7d3f3', '#8ec5ed', '#c0c0c0'];
+        for (let i = 0; i < 60; i++) {
+          const piece = document.createElement('div');
+          piece.classList.add('confetti-piece');
+          piece.style.left = Math.random() * 100 + 'vw';
+          piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+          piece.style.animationDelay = Math.random() * 1.5 + 's';
+          piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+          piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+          document.body.appendChild(piece);
+          setTimeout(() => piece.remove(), 5000);
+        }
+      }
+      // Hook into RSVP success
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((m) => {
+          const target = m.target as HTMLElement;
+          if (target.id === 'rsvp-success' && !target.classList.contains('hidden')) {
+            launchConfetti();
+          }
+        });
+      });
+      const rsvpSuccess = document.getElementById('rsvp-success');
+      if (rsvpSuccess) observer.observe(rsvpSuccess, { attributes: true, attributeFilter: ['class'] });
+
+      // Easter egg: triple tap on "Silvermist" text
+      let tapCount = 0;
+      let tapTimer: any;
+      document.querySelectorAll('*').forEach(el => {
+        if (el.textContent?.trim() === 'Silvermist') {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tapCount++;
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 500);
+            if (tapCount >= 3) {
+              tapCount = 0;
+              // Fairy dust effect
+              document.querySelectorAll('h1, h2').forEach(h => h.classList.add('fairy-glow-active'));
+              // Create fairy sparkles
+              for (let i = 0; i < 30; i++) {
+                const spark = document.createElement('div');
+                spark.classList.add('sparkle');
+                spark.style.left = Math.random() * 100 + '%';
+                spark.style.top = Math.random() * 100 + '%';
+                spark.style.position = 'fixed';
+                spark.style.zIndex = '9999';
+                spark.style.width = '6px';
+                spark.style.height = '6px';
+                spark.style.background = '#78c8ff';
+                spark.style.boxShadow = '0 0 10px #78c8ff';
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 3000);
+              }
+              setTimeout(() => {
+                document.querySelectorAll('.fairy-glow-active').forEach(h => h.classList.remove('fairy-glow-active'));
+              }, 5000);
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>

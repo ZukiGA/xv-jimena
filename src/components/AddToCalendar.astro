@@ -1,0 +1,45 @@
+---
+// Add to Calendar button
+---
+
+<div class="text-center mt-8">
+  <a
+    id="add-cal"
+    href="#"
+    class="inline-flex items-center gap-2 px-6 py-3 glass-card text-white font-[Montserrat] text-sm tracking-wider hover:bg-white/20 transition-all"
+  >
+    📅 Agregar a mi Calendario
+  </a>
+</div>
+
+<script>
+  document.getElementById('add-cal')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//XV Jimena//ES',
+      'BEGIN:VEVENT',
+      'DTSTART:20260725T190000',
+      'DTEND:20260726T030000',
+      'SUMMARY:XV Años de Jimena ✨🧚',
+      'DESCRIPTION:¡Estás invitada(o) a celebrar los XV Años de Jimena!',
+      'LOCATION:Salón El Carmen\\, Santo Tomás Hueyotlipan\\, Puebla',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT2H',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Los XV de Jimena son en 2 horas',
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'xv-jimena.ics';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+</script>

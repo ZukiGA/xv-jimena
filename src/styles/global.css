@@ -114,3 +114,80 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
 }
+
+/* Water drops falling */
+@keyframes dropFall {
+  0% { top: -5%; opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% { top: 105%; opacity: 0; }
+}
+
+.water-drop {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: linear-gradient(to bottom, transparent, rgba(120, 200, 255, 0.6));
+  border-radius: 50%;
+  animation: dropFall linear infinite;
+  pointer-events: none;
+}
+
+/* Ripple on click */
+@keyframes rippleExpand {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+.ripple-effect {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(120, 200, 255, 0.4);
+  animation: rippleExpand 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Water reflection for name */
+.text-reflection {
+  display: inline-block;
+}
+.text-reflection::after {
+  content: attr(data-text);
+  display: block;
+  transform: scaleY(-1);
+  opacity: 0.15;
+  filter: blur(2px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  line-height: 0.8;
+}
+
+/* Confetti */
+@keyframes confettiFall {
+  0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 12px;
+  top: -20px;
+  z-index: 999;
+  animation: confettiFall 3s ease-in forwards;
+  pointer-events: none;
+}
+
+/* Easter egg shimmer on long press */
+@keyframes fairyDust {
+  0% { text-shadow: 0 0 5px rgba(120, 200, 255, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(120, 200, 255, 0.8), 0 0 40px rgba(180, 220, 255, 0.4); }
+  100% { text-shadow: 0 0 5px rgba(120, 200, 255, 0.5); }
+}
+
+.fairy-glow-active {
+  animation: fairyDust 1.5s ease-in-out infinite;
+}
