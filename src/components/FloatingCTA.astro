@@ -18,7 +18,6 @@
   function initCTA() {
     const cta = document.getElementById('floating-cta');
     const rsvpSection = document.getElementById('confirmar');
-    const heroSection = document.querySelector('section');
     if (!cta || !rsvpSection) return;
 
     let hidden = false;
@@ -26,12 +25,11 @@
     function update() {
       if (hidden) return;
 
-      const heroRect = heroSection?.getBoundingClientRect();
-      const rsvpRect = rsvpSection.getBoundingClientRect();
-      const pastHero = heroRect ? heroRect.bottom < window.innerHeight * 0.3 : true;
-      const rsvpVisible = rsvpRect.top < window.innerHeight * 0.9;
+      const scrollY = window.scrollY;
+      const showAfter = window.innerHeight * 0.7;
+      const rsvpTop = rsvpSection.offsetTop - window.innerHeight;
 
-      if (pastHero && !rsvpVisible) {
+      if (scrollY > showAfter && scrollY < rsvpTop) {
         cta.style.opacity = '1';
         cta.style.transform = 'translateY(0)';
       } else {
