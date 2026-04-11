@@ -300,7 +300,14 @@ const pageUrl = `${Astro.site}`;
         }, { threshold: 0.1 });
 
         allSections.forEach((s, i) => {
-          if (i > 0) revealObserver.observe(s);
+          if (i > 0) {
+            revealObserver.observe(s);
+            // Reveal sections already in viewport
+            const rect = s.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+              s.classList.add('revealed');
+            }
+          }
         });
       }
 
@@ -308,7 +315,8 @@ const pageUrl = `${Astro.site}`;
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initScrollReveal);
       } else {
-        initScrollReveal();
+        // Small delay to ensure all components are rendered
+        requestAnimationFrame(initScrollReveal);
       }
     </script>
   </body>
