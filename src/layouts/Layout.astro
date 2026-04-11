@@ -41,6 +41,38 @@ const pageUrl = `${Astro.site}`;
 
     <!-- Global animation styles (must not be scoped) -->
     <style is:global>
+      /* Scroll reveal */
+      .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-section.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Scroll hint arrows between sections */
+      .scroll-hint {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .scroll-hint.visible {
+        opacity: 1;
+      }
+      .scroll-hint.passed {
+        opacity: 0;
+        pointer-events: none;
+      }
+      @keyframes gentlePulse {
+        0%, 100% { transform: translateY(0); opacity: 0.3; }
+        50% { transform: translateY(4px); opacity: 0.5; }
+      }
+      .scroll-hint svg {
+        animation: gentlePulse 2s ease-in-out infinite;
+      }
+
       @keyframes dropFall {
         0% { transform: translateY(-100vh); opacity: 0; }
         10% { opacity: 0.7; }
@@ -231,6 +263,42 @@ const pageUrl = `${Astro.site}`;
           });
         }
       });
+      // Scroll reveal — animate sections on scroll
+      const sections = document.querySelectorAll('section');
+      sections.forEach(s => s.classList.add('reveal-section'));
+
+      // Insert scroll hint arrows between sections
+      sections.forEach((s, i) => {
+        if (i < sections.length - 1) {
+          const hint = document.createElement('div');
+          hint.className = 'scroll-hint text-center py-3';
+          hint.innerHTML = '<svg class="w-4 h-4 mx-auto text-[#c0c0c0]/30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"></path></svg>';
+          s.after(hint);
+        }
+      });
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            // Show hint arrow below this section
+            const hint = entry.target.nextElementSibling;
+            if (hint?.classList.contains('scroll-hint')) {
+              setTimeout(() => hint.classList.add('visible'), 400);
+            }
+            // Hide hint arrow above this section
+            const prevHint = entry.target.previousElementSibling;
+            if (prevHint?.classList.contains('scroll-hint')) {
+              prevHint.classList.add('passed');
+            }
+          }
+        });
+      }, { threshold: 0.15 });
+
+      sections.forEach(s => revealObserver.observe(s));
+
+      // First section (hero) should be revealed immediately
+      sections[0]?.classList.add('revealed');
     </script>
   </body>
 </html>
