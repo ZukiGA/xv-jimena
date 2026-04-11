@@ -103,9 +103,7 @@ const pageUrl = `${Astro.site}`;
     >
       🎵
     </button>
-    <div id="yt-player-wrap" class="fixed bottom-20 right-6 z-50 hidden rounded-xl overflow-hidden shadow-2xl border border-[#c0c0c0]/30 bg-black/50 backdrop-blur-md">
-      <div id="yt-player"></div>
-    </div>
+    <audio id="bg-music" src="/audio/la-separacion.mp3" loop preload="none"></audio>
 
     <!-- Personalized name + WhatsApp share -->
     <script>
@@ -120,52 +118,21 @@ const pageUrl = `${Astro.site}`;
         }
       }
 
-      // YouTube IFrame API
-      let player: any = null;
-      let musicPlaying = false;
+      // Music player
       const musicBtn = document.getElementById('music-btn');
-      const playerWrap = document.getElementById('yt-player-wrap');
-
-      // Load YT API
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(tag);
-
-      (window as any).onYouTubeIframeAPIReady = () => {
-        player = new (window as any).YT.Player('yt-player', {
-          height: '60',
-          width: '220',
-          videoId: '8a2gCnF2Nq4',
-          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 1, playsinline: 1, origin: window.location.origin },
-          events: {
-            onReady: () => console.log('YT player ready'),
-            onStateChange: (e: any) => {
-              if (e.data === 0) player.playVideo();
-              if (e.data === 1) { // playing
-                if (musicBtn) musicBtn.textContent = '🔇';
-                musicPlaying = true;
-              }
-              if (e.data === 2) { // paused
-                if (musicBtn) musicBtn.textContent = '🎵';
-                musicPlaying = false;
-              }
-            },
-            onError: (e: any) => console.error('YT error', e.data)
-          }
-        });
-      };
+      const audio = document.getElementById('bg-music') as HTMLAudioElement;
+      let musicPlaying = false;
 
       musicBtn?.addEventListener('click', () => {
-        if (!playerWrap) return;
-        if (playerWrap.classList.contains('hidden')) {
-          playerWrap.classList.remove('hidden');
-          if (player && !musicPlaying) player.playVideo();
-        } else if (player) {
-          if (musicPlaying) {
-            player.pauseVideo();
-          } else {
-            player.playVideo();
-          }
+        if (!audio) return;
+        if (!musicPlaying) {
+          audio.play();
+          if (musicBtn) musicBtn.textContent = '🔇';
+          musicPlaying = true;
+        } else {
+          audio.pause();
+          if (musicBtn) musicBtn.textContent = '🎵';
+          musicPlaying = false;
         }
       });
 
