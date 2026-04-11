@@ -115,45 +115,6 @@ body {
   border-radius: 1rem;
 }
 
-/* Water drops falling */
-@keyframes dropFall {
-  0% { transform: translateY(-100vh); opacity: 0; }
-  10% { opacity: 0.7; }
-  90% { opacity: 0.5; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
-.water-drop {
-  position: fixed;
-  top: 0;
-  width: 3px;
-  height: 12px;
-  background: linear-gradient(to bottom, transparent, rgba(10, 80, 160, 0.5));
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(10, 80, 160, 0.3);
-  animation: dropFall linear infinite;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-/* Ripple on click */
-@keyframes rippleExpand {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
-
-.ripple-effect {
-  position: fixed;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 2px solid rgba(120, 200, 255, 0.6);
-  box-shadow: 0 0 10px rgba(120, 200, 255, 0.3);
-  animation: rippleExpand 1s ease-out forwards;
-  pointer-events: none;
-  z-index: 9997;
-}
-
 /* Water reflection for name */
 .text-reflection {
   display: inline-block;
@@ -167,31 +128,4 @@ body {
   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
   line-height: 0.8;
-}
-
-/* Confetti */
-@keyframes confettiFall {
-  0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-.confetti-piece {
-  position: fixed;
-  width: 8px;
-  height: 12px;
-  top: -20px;
-  z-index: 999;
-  animation: confettiFall 3s ease-in forwards;
-  pointer-events: none;
-}
-
-/* Easter egg shimmer on long press */
-@keyframes fairyDust {
-  0% { text-shadow: 0 0 5px rgba(120, 200, 255, 0.5); }
-  50% { text-shadow: 0 0 20px rgba(120, 200, 255, 0.8), 0 0 40px rgba(180, 220, 255, 0.4); }
-  100% { text-shadow: 0 0 5px rgba(120, 200, 255, 0.5); }
-}
-
-.fairy-glow-active {
-  animation: fairyDust 1.5s ease-in-out infinite;
 }
