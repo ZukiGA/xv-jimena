@@ -45,7 +45,9 @@ const pageUrl = `${Astro.site}xv-jimena/`;
     >
       🎵
     </button>
-    <div id="music-container"></div>
+    <div id="yt-player-wrap" class="fixed bottom-20 right-6 z-50 hidden rounded-xl overflow-hidden shadow-2xl border border-white/20">
+      <div id="yt-player"></div>
+    </div>
 
     <!-- Personalized name + WhatsApp share -->
     <script>
@@ -60,22 +62,41 @@ const pageUrl = `${Astro.site}xv-jimena/`;
         }
       }
 
-      // Music button - plays YouTube audio via iframe
+      // YouTube IFrame API
+      let player: any = null;
       let musicPlaying = false;
       const musicBtn = document.getElementById('music-btn');
-      const musicContainer = document.getElementById('music-container');
-      
-      musicBtn?.addEventListener('click', () => {
-        if (!musicPlaying) {
-          // Create hidden YouTube iframe with autoplay
-          if (musicContainer) {
-            musicContainer.innerHTML = '<iframe src="https://www.youtube.com/embed/8a2gCnF2Nq4?autoplay=1&loop=1&playlist=8a2gCnF2Nq4" allow="autoplay" class="hidden" width="0" height="0"></iframe>';
+      const playerWrap = document.getElementById('yt-player-wrap');
+
+      // Load YT API
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+
+      (window as any).onYouTubeIframeAPIReady = () => {
+        player = new (window as any).YT.Player('yt-player', {
+          height: '1',
+          width: '1',
+          videoId: '8a2gCnF2Nq4',
+          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 0 },
+          events: {
+            onReady: () => console.log('YT player ready'),
+            onStateChange: (e: any) => {
+              if (e.data === 0) player.playVideo(); // loop
+            }
           }
-          musicBtn.textContent = '🔇';
+        });
+      };
+
+      musicBtn?.addEventListener('click', () => {
+        if (!player) return;
+        if (!musicPlaying) {
+          player.playVideo();
+          if (musicBtn) musicBtn.textContent = '🔇';
           musicPlaying = true;
         } else {
-          if (musicContainer) musicContainer.innerHTML = '';
-          musicBtn.textContent = '🎵';
+          player.pauseVideo();
+          if (musicBtn) musicBtn.textContent = '🎵';
           musicPlaying = false;
         }
       });
