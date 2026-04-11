@@ -1,0 +1,63 @@
+---
+// Countdown timer — July 25, 2026
+---
+
+<section id="countdown" class="py-20 px-6">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Faltan</h2>
+    <div class="flex items-center justify-center gap-4 mb-10">
+      <span class="h-px w-12 bg-silver"></span>
+      <span class="text-water-light text-sm">✧</span>
+      <span class="h-px w-12 bg-silver"></span>
+    </div>
+
+    <div id="countdown-timer" class="flex justify-center gap-4 md:gap-8">
+      <div class="flex flex-col items-center">
+        <span id="days" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
+        <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Días</span>
+      </div>
+      <span class="text-4xl text-silver/40 self-start mt-2">·</span>
+      <div class="flex flex-col items-center">
+        <span id="hours" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
+        <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Horas</span>
+      </div>
+      <span class="text-4xl text-silver/40 self-start mt-2">·</span>
+      <div class="flex flex-col items-center">
+        <span id="minutes" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
+        <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Min</span>
+      </div>
+      <span class="text-4xl text-silver/40 self-start mt-2">·</span>
+      <div class="flex flex-col items-center">
+        <span id="seconds" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
+        <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Seg</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const targetDate = new Date('2026-07-25T19:00:00-05:00').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown-timer')!.innerHTML = '<p class="text-2xl text-water-deep">¡Hoy es el gran día! 🎉</p>';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('days')!.textContent = String(days).padStart(2, '0');
+    document.getElementById('hours')!.textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes')!.textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds')!.textContent = String(seconds).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

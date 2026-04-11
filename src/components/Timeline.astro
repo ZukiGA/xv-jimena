@@ -1,0 +1,41 @@
+---
+// Timeline of the event
+---
+
+<section id="programa" class="py-20 px-6">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Programa</h2>
+    <div class="flex items-center justify-center gap-4 mb-12">
+      <span class="h-px w-12 bg-silver"></span>
+      <span class="text-water-light text-sm">✧</span>
+      <span class="h-px w-12 bg-silver"></span>
+    </div>
+
+    <div class="relative">
+      <!-- Vertical line -->
+      <div class="absolute left-1/2 top-0 bottom-0 w-px bg-water-shimmer -translate-x-1/2"></div>
+
+      {[
+        { time: '5:00 PM', icon: '⛪', title: 'Misa de Acción de Gracias', desc: 'Ceremonia religiosa' },
+        { time: '7:00 PM', icon: '🥂', title: 'Recepción', desc: 'Bienvenida y cóctel' },
+        { time: '8:00 PM', icon: '🍽️', title: 'Cena', desc: 'Banquete' },
+        { time: '9:00 PM', icon: '💃', title: 'Vals', desc: 'El gran baile de Jimena' },
+        { time: '9:30 PM', icon: '🥿', title: 'Cambio de Zapatilla', desc: 'Tradición especial' },
+        { time: '10:00 PM', icon: '🎂', title: 'Brindis y Pastel', desc: 'Celebración' },
+        { time: '10:30 PM', icon: '🎶', title: 'Fiesta', desc: '¡A bailar toda la noche!' },
+      ].map((item, i) => (
+        <div class={`relative flex items-center mb-8 ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div class={`w-5/12 ${i % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
+            <p class="text-water-mid font-[Montserrat] text-sm font-medium">{item.time}</p>
+            <h3 class="text-lg text-water-deep font-semibold">{item.title}</h3>
+            <p class="text-water-mid/60 text-sm">{item.desc}</p>
+          </div>
+          <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-water-mist border-2 border-water-light rounded-full flex items-center justify-center text-lg z-10">
+            {item.icon}
+          </div>
+          <div class="w-5/12"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

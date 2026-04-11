@@ -1,0 +1,28 @@
+---
+// Photo gallery — growing up photos
+---
+
+<section id="galeria" class="py-20 px-6 bg-white/30 backdrop-blur-sm">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Mi Historia</h2>
+    <div class="flex items-center justify-center gap-4 mb-4">
+      <span class="h-px w-12 bg-silver"></span>
+      <span class="text-water-light text-sm">✧</span>
+      <span class="h-px w-12 bg-silver"></span>
+    </div>
+    <p class="text-water-mid/60 italic mb-12">15 años de momentos mágicos</p>
+
+    <!-- Placeholder grid for photos -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {Array.from({ length: 9 }).map((_, i) => (
+        <div class="aspect-square rounded-2xl bg-water-shimmer/30 border border-water-shimmer/50 flex items-center justify-center group hover:scale-[1.02] transition-transform duration-300 overflow-hidden">
+          <div class="text-center p-4">
+            <p class="text-water-mid/40 text-4xl mb-2">✧</p>
+            <p class="text-water-mid/30 font-[Montserrat] text-xs tracking-wider">Foto {i + 1}</p>
+          </div>
+          <!-- Replace with: <img src={`/photos/jimena-${i + 1}.jpg`} class="w-full h-full object-cover" /> -->
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,87 @@
+@import 'tailwindcss';
+
+/* Silvermist Theme — Water Fairy */
+:root {
+  --water-deep: #1a3a5c;
+  --water-mid: #2d6a9f;
+  --water-light: #7ec8e3;
+  --water-shimmer: #c4e4f2;
+  --water-mist: #e8f4f8;
+  --silver: #c0c0c0;
+  --silver-light: #e8e8e8;
+  --fairy-glow: #b8d4e3;
+  --accent-lavender: #9b8ec4;
+  --text-dark: #1a2a3a;
+  --text-light: #f0f6fa;
+}
+
+@theme {
+  --color-water-deep: #1a3a5c;
+  --color-water-mid: #2d6a9f;
+  --color-water-light: #7ec8e3;
+  --color-water-shimmer: #c4e4f2;
+  --color-water-mist: #e8f4f8;
+  --color-silver: #c0c0c0;
+  --color-silver-light: #e8e8e8;
+  --color-fairy-glow: #b8d4e3;
+  --color-accent-lavender: #9b8ec4;
+  --color-text-dark: #1a2a3a;
+  --color-text-light: #f0f6fa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  background: linear-gradient(180deg, var(--water-mist) 0%, var(--water-shimmer) 50%, var(--fairy-glow) 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* Water ripple animation */
+@keyframes ripple {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Sparkle particles */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: float 2s ease-in-out infinite;
+  opacity: 0.6;
+}
