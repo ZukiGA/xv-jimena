@@ -4,31 +4,31 @@
 
 <section id="countdown" class="py-20 px-6">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-light text-water-light mb-2">Faltan</h2>
+    <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Faltan</h2>
     <div class="flex items-center justify-center gap-4 mb-10">
       <span class="h-px w-12 bg-silver"></span>
-      <span class="text-water-light text-sm">✧</span>
+      <span class="text-water-deep text-sm">✧</span>
       <span class="h-px w-12 bg-silver"></span>
     </div>
 
     <div id="countdown-timer" class="flex justify-center gap-4 md:gap-8">
       <div class="flex flex-col items-center">
-        <span id="days" class="text-5xl md:text-7xl font-light text-water-light">--</span>
+        <span id="days" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
         <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Días</span>
       </div>
       <span class="text-4xl text-silver/40 self-start mt-2">·</span>
       <div class="flex flex-col items-center">
-        <span id="hours" class="text-5xl md:text-7xl font-light text-water-light">--</span>
+        <span id="hours" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
         <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Horas</span>
       </div>
       <span class="text-4xl text-silver/40 self-start mt-2">·</span>
       <div class="flex flex-col items-center">
-        <span id="minutes" class="text-5xl md:text-7xl font-light text-water-light">--</span>
+        <span id="minutes" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
         <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Min</span>
       </div>
       <span class="text-4xl text-silver/40 self-start mt-2">·</span>
       <div class="flex flex-col items-center">
-        <span id="seconds" class="text-5xl md:text-7xl font-light text-water-light">--</span>
+        <span id="seconds" class="text-5xl md:text-7xl font-light text-water-deep">--</span>
         <span class="text-xs font-[Montserrat] tracking-[0.2em] uppercase text-water-mid/60 mt-2">Seg</span>
       </div>
     </div>
@@ -43,7 +43,7 @@
     const diff = targetDate - now;
 
     if (diff <= 0) {
-      document.getElementById('countdown-timer')!.innerHTML = '<p class="text-2xl text-water-light">¡Hoy es el gran día! 🎉</p>';
+      document.getElementById('countdown-timer')!.innerHTML = '<p class="text-2xl text-water-deep">¡Hoy es el gran día! 🎉</p>';
       return;
     }
 
