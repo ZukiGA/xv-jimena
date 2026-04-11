@@ -1,37 +1,33 @@
 ---
-// Timeline of the event
+// Timeline — clean, horizontal on desktop, vertical on mobile
 ---
 
 <section id="programa" class="py-20 px-6">
-  <div class="max-w-lg mx-auto text-center">
+  <div class="max-w-2xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Programa</h2>
     <div class="flex items-center justify-center gap-4 mb-12">
-      <span class="h-px w-12 bg-white/40"></span>
-      <span class="text-[#0a2540] text-sm">✧</span>
-      <span class="h-px w-12 bg-white/40"></span>
+      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
+      <span class="text-[#c0c0c0] text-sm">✧</span>
+      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
     </div>
 
-    <div class="relative pl-8">
-      <!-- Vertical line -->
-      <div class="absolute left-3 top-0 bottom-0 w-px bg-white/30"></div>
-
+    <div class="space-y-0">
       {[
-        { time: '2:00 PM', icon: '⛪', title: 'Misa de Acción de Gracias', desc: 'Ceremonia religiosa' },
-        { time: '7:00 PM', icon: '🥂', title: 'Recepción', desc: 'Bienvenida y cóctel' },
-        { time: '8:00 PM', icon: '🍽️', title: 'Cena', desc: 'Banquete' },
-        { time: '9:00 PM', icon: '💃', title: 'Vals', desc: 'El gran baile de Jimena' },
-        { time: '9:30 PM', icon: '🥿', title: 'Cambio de Zapatilla', desc: 'Tradición especial' },
-        { time: '10:00 PM', icon: '🎂', title: 'Brindis y Pastel', desc: 'Celebración' },
-        { time: '10:30 PM', icon: '🎶', title: 'Fiesta', desc: '¡A bailar toda la noche!' },
+        { time: '2:00', label: 'PM', title: 'Ceremonia' },
+        { time: '7:00', label: 'PM', title: 'Recepción' },
+        { time: '8:00', label: 'PM', title: 'Cena' },
+        { time: '9:00', label: 'PM', title: 'Vals' },
+        { time: '9:30', label: 'PM', title: 'Cambio de Zapatilla' },
+        { time: '10:00', label: 'PM', title: 'Brindis' },
+        { time: '10:30', label: 'PM', title: 'Fiesta' },
       ].map((item) => (
-        <div class="relative mb-8 text-left">
-          <!-- Dot on line -->
-          <div class="absolute -left-8 top-1 w-6 h-6 bg-white/20 backdrop-blur-sm border border-white/40 rounded-full flex items-center justify-center text-xs">
-            {item.icon}
+        <div class="flex items-center py-4 border-b border-[#c0c0c0]/20 last:border-0">
+          <div class="w-24 text-right pr-6">
+            <span class="text-2xl font-light text-[#0a2540]">{item.time}</span>
+            <span class="text-xs font-[Montserrat] text-[#0a2540]/40 ml-1">{item.label}</span>
           </div>
-          <p class="text-[#0a2540]/60 font-[Montserrat] text-xs font-medium tracking-wider mb-1">{item.time}</p>
-          <h3 class="text-lg text-[#0a2540] font-semibold">{item.title}</h3>
-          <p class="text-[#0a2540]/50 text-sm">{item.desc}</p>
+          <div class="w-px h-6 bg-[#c0c0c0]/40"></div>
+          <p class="pl-6 text-lg text-[#0a2540]/80 font-light">{item.title}</p>
         </div>
       ))}
     </div>

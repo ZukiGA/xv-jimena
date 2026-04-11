@@ -1,94 +1,92 @@
 ---
-// RSVP form
+// RSVP form — clean
 ---
 
 <section id="confirmar" class="py-20 px-6">
-  <div class="max-w-xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Confirmar Asistencia</h2>
+  <div class="max-w-md mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Confirmar</h2>
     <div class="flex items-center justify-center gap-4 mb-8">
-      <span class="h-px w-12 bg-white/40"></span>
-      <span class="text-[#0a2540]/50 text-sm">✧</span>
-      <span class="h-px w-12 bg-white/40"></span>
+      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
+      <span class="text-[#c0c0c0] text-sm">✧</span>
+      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
     </div>
 
-    <p class="text-[#0a2540]/60 italic mb-10">
-      Por favor confirma tu asistencia antes del <strong class="text-[#0a2540]">10 de Julio de 2026</strong>
+    <p class="text-[#0a2540]/50 text-sm mb-10">
+      Antes del 10 de julio
     </p>
 
-    <form id="rsvp-form" class="p-6 rounded-2xl bg-white/10 border border-white/20 space-y-4 text-left">
+    <form id="rsvp-form" class="space-y-4 text-left">
       <div>
-        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Nombre completo</label>
+        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Nombre</label>
         <input
           type="text"
           name="name"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540] placeholder-white/40"
+          class="w-full px-4 py-3 rounded-lg bg-white/30 border border-[#c0c0c0]/40 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/20"
           placeholder="Tu nombre"
         />
       </div>
 
       <div>
-        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Número de invitados</label>
+        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Personas</label>
         <select
           name="guests"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540]"
+          class="w-full px-4 py-3 rounded-lg bg-white/30 border border-[#c0c0c0]/40 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540]"
         >
-          <option value="" class="text-gray-800">Selecciona</option>
-          <option value="1" class="text-gray-800">1 persona</option>
-          <option value="2" class="text-gray-800">2 personas</option>
-          <option value="3" class="text-gray-800">3 personas</option>
-          <option value="4" class="text-gray-800">4 personas</option>
-          <option value="5" class="text-gray-800">5+ personas</option>
+          <option value="" class="text-gray-800">—</option>
+          <option value="1" class="text-gray-800">1</option>
+          <option value="2" class="text-gray-800">2</option>
+          <option value="3" class="text-gray-800">3</option>
+          <option value="4" class="text-gray-800">4</option>
+          <option value="5" class="text-gray-800">5+</option>
         </select>
       </div>
 
       <div>
-        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">¿Asistirás?</label>
-        <div class="flex gap-4">
+        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Asistencia</label>
+        <div class="flex gap-3">
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="yes" required class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-[#0a2540] text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
-              ¡Ahí estaré! ✨
+            <div class="px-4 py-3 rounded-lg bg-white/20 border border-[#c0c0c0]/30 text-[#0a2540] text-center text-sm peer-checked:bg-white/40 peer-checked:border-[#0a2540]/30 transition-all">
+              Confirmo
             </div>
           </label>
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="no" class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-[#0a2540] text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
-              No podré ir 😢
+            <div class="px-4 py-3 rounded-lg bg-white/20 border border-[#c0c0c0]/30 text-[#0a2540] text-center text-sm peer-checked:bg-white/40 peer-checked:border-[#0a2540]/30 transition-all">
+              No podré
             </div>
           </label>
         </div>
       </div>
 
       <div>
-        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Mensaje para Jimena (opcional)</label>
+        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Mensaje <span class="text-[#0a2540]/30">opcional</span></label>
         <textarea
           name="message"
-          rows="3"
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540] placeholder-white/40 resize-none"
-          placeholder="Escribe un mensaje especial..."
+          rows="2"
+          class="w-full px-4 py-3 rounded-lg bg-white/20 border border-[#c0c0c0]/30 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/20 resize-none"
+          placeholder="..."
         ></textarea>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 bg-white/25 backdrop-blur-sm text-[#0a2540] border border-white/40 rounded-xl font-[Montserrat] text-sm tracking-wider hover:bg-white/35 transition-colors"
+        class="w-full py-3 bg-[#0a2540] text-white rounded-lg font-[Montserrat] text-sm tracking-wider hover:bg-[#0a2540]/90 transition-colors"
       >
-        Confirmar Asistencia
+        Enviar
       </button>
     </form>
 
-    <div id="rsvp-success" class="hidden mt-8 p-6 rounded-2xl bg-white/10 border border-white/20">
-      <p class="text-2xl mb-2">✨</p>
-      <p class="text-[#0a2540] text-lg">¡Gracias por confirmar!</p>
-      <p class="text-[#0a2540]/50 text-sm mt-1">Te esperamos con mucha ilusión</p>
+    <div id="rsvp-success" class="hidden mt-8">
+      <p class="text-[#0a2540] text-lg">Confirmado.</p>
+      <p class="text-[#0a2540]/40 text-sm mt-1">Nos vemos el 25 de julio.</p>
     </div>
   </div>
 </section>
 
 <script>
-  // Pre-fill name from URL param
   const params = new URLSearchParams(window.location.search);
   const guestName = params.get('n');
   if (guestName) {
@@ -108,28 +106,37 @@
     };
 
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    btn.textContent = 'Enviando...';
+    btn.textContent = '...';
     btn.disabled = true;
 
     try {
-      // TODO: Replace with your Google Apps Script Web App URL
       const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxIRuGWjZh2CJ8pFlOdjXq2W1OUpjv8muNa1H7TUTg_fJYrlSUcHcjStPo9YW-lVmqhkw/exec';
       
-      if (GOOGLE_SHEETS_URL !== 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_URL') {
-        await fetch(GOOGLE_SHEETS_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-      }
+      await fetch(GOOGLE_SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
       
       form.classList.add('hidden');
       document.getElementById('rsvp-success')?.classList.remove('hidden');
+      
+      // Confetti
+      const colors = ['#c0c0c0', '#0c8ce9', '#ffffff', '#a7d3f3', '#e8e8e8'];
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement('div');
+        piece.classList.add('confetti-piece');
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 1.5 + 's';
+        piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+      }
     } catch (err) {
-      btn.textContent = 'Confirmar Asistencia';
+      btn.textContent = 'Enviar';
       btn.disabled = false;
-      alert('Error al enviar. Intenta de nuevo.');
     }
   });
 </script>

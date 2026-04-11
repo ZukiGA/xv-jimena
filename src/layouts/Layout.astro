@@ -112,9 +112,10 @@ const pageUrl = `${Astro.site}`;
       const invitado = params.get('n');
       if (invitado) {
         const nameEl = document.getElementById('guest-name');
+        const wrapEl = document.getElementById('greeting-wrap');
         if (nameEl) {
           nameEl.textContent = decodeURIComponent(invitado.replace(/\+/g, ' '));
-          nameEl.parentElement?.classList.remove('hidden');
+          wrapEl?.classList.remove('hidden');
         }
       }
 
