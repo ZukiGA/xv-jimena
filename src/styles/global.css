@@ -124,13 +124,14 @@ body {
 }
 
 .water-drop {
-  position: absolute;
+  position: fixed;
   width: 2px;
   height: 8px;
   background: linear-gradient(to bottom, transparent, rgba(120, 200, 255, 0.6));
   border-radius: 50%;
   animation: dropFall linear infinite;
   pointer-events: none;
+  z-index: 9998;
 }
 
 /* Ripple on click */
@@ -140,7 +141,7 @@ body {
 }
 
 .ripple-effect {
-  position: absolute;
+  position: fixed;
   width: 200px;
   height: 200px;
   border-radius: 50%;
