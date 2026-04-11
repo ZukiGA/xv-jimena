@@ -31,7 +31,7 @@
 
 html {
   scroll-behavior: smooth;
-  background: #000;
+  background: transparent;
   overscroll-behavior: none;
 }
 
