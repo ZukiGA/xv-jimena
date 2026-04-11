@@ -3,8 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://zukiga.github.io',
-  base: 'xv-jimena',
+  site: 'https://jimenaxv.com',
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
