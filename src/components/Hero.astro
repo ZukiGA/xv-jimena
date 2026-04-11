@@ -2,11 +2,11 @@
 // Hero section — Silvermist water fairy theme with photo background
 ---
 
-<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+<section class="relative min-h-screen flex flex-col justify-between text-center overflow-hidden py-12">
   <!-- Background image -->
   <div class="absolute inset-0">
     <img src="/xv-jimena/images/bg/hero-mountain.jpg" alt="" class="w-full h-full object-cover object-[40%_30%]" />
-    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/75"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70"></div>
   </div>
 
   <!-- Sparkle particles -->
@@ -18,58 +18,55 @@
     <div class="sparkle" style="top: 80%; left: 15%; animation-delay: 0.8s;"></div>
   </div>
 
-  <div class="relative z-10 px-6 max-w-2xl mx-auto">
+  <!-- TOP: Bendición + Personalized greeting -->
+  <div class="relative z-10 px-6">
     <!-- Personalized greeting -->
-    <div class="hidden mb-6 animate-fade-in-up">
+    <div class="hidden mb-4 animate-fade-in-up">
       <p class="text-white/80 font-[Montserrat] text-sm tracking-wider">
         Querido(a) <span id="guest-name" class="text-white font-semibold"></span>, estás invitado(a)
       </p>
     </div>
 
-    <!-- Pre-title -->
-    <p class="text-white/80 font-[Montserrat] text-sm tracking-[0.3em] uppercase mb-4 animate-fade-in-up">
+    <p class="text-white/80 font-[Montserrat] text-sm tracking-[0.3em] uppercase animate-fade-in-up">
       Con la bendición de Dios y de mis padres
     </p>
+  </div>
 
-    <!-- Divider -->
-    <div class="flex items-center justify-center gap-4 mb-6 animate-fade-in-up" style="animation-delay: 0.2s">
+  <!-- MIDDLE: Name + XV (positioned to not cover face) -->
+  <div class="relative z-10 px-6 animate-fade-in-up" style="animation-delay: 0.3s">
+    <div class="flex items-center justify-center gap-4 mb-4">
       <span class="h-px w-16 bg-white/50"></span>
       <span class="text-white/70 text-xl">❀</span>
       <span class="h-px w-16 bg-white/50"></span>
     </div>
 
-    <!-- Name -->
-    <h1 class="text-6xl md:text-8xl font-light text-white mb-2 animate-fade-in-up drop-shadow-lg text-reflection" data-text="Jimena" style="animation-delay: 0.4s">
+    <h1 class="text-6xl md:text-8xl font-light text-white mb-2 drop-shadow-lg text-reflection" data-text="Jimena">
       Jimena
     </h1>
 
-    <!-- XV -->
-    <div class="relative inline-block animate-fade-in-up" style="animation-delay: 0.6s">
-      <span class="text-3xl md:text-4xl font-light text-white/90 tracking-widest">XV AÑOS</span>
-    </div>
+    <span class="text-3xl md:text-4xl font-light text-white/90 tracking-widest">XV AÑOS</span>
+  </div>
 
-    <!-- Silvermist fairy element -->
-    <div class="mt-8 mb-6 animate-fade-in-up" style="animation-delay: 0.8s">
-      <p class="text-white/70 italic text-lg">
-        ✦ Hada del Agua ✦
-      </p>
-      <p class="text-white/50 font-[Montserrat] text-xs tracking-[0.2em] uppercase mt-1">
-        Silvermist
-      </p>
-    </div>
+  <!-- Silvermist — just above the dark zone -->
+  <div class="relative z-10 px-6 mb-4 animate-fade-in-up" style="animation-delay: 0.6s">
+    <p class="text-white/70 italic text-lg">
+      ✦ Hada del Agua ✦
+    </p>
+    <p class="text-white/50 font-[Montserrat] text-xs tracking-[0.2em] uppercase mt-1">
+      Silvermist
+    </p>
+  </div>
 
-    <!-- Date -->
-    <div class="mt-8 animate-fade-in-up" style="animation-delay: 1s">
-      <p class="text-white font-[Montserrat] text-base tracking-[0.15em]">
-        25 de Julio de 2026
-      </p>
-      <p class="text-white/60 font-[Montserrat] text-sm mt-1">
-        Salón El Carmen · Santo Tomás Hueyotlipan
-      </p>
-    </div>
+  <!-- BOTTOM: Date + Location + Scroll -->
+  <div class="relative z-10 px-6 animate-fade-in-up" style="animation-delay: 0.8s">
+    <p class="text-white font-[Montserrat] text-base tracking-[0.15em]">
+      25 de Julio de 2026
+    </p>
+    <p class="text-white/60 font-[Montserrat] text-sm mt-2">
+      Salón El Carmen · Santo Tomás Hueyotlipan
+    </p>
 
-    <!-- Scroll indicator -->
-    <div class="mt-16 animate-float">
+    <div class="mt-8 animate-float">
       <a href="#countdown" class="text-white/40 hover:text-white/70 transition-colors">
         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
