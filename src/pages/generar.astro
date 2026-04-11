@@ -42,6 +42,14 @@
       📋 Copiar link
     </button>
 
+    <button class="btn" id="wa-btn" disabled style="background:#25D366">
+      💬 Enviar por WhatsApp
+    </button>
+
+    <button class="btn" id="copy-msg-btn" disabled style="background:#3a5a7c">
+      📝 Copiar mensaje completo
+    </button>
+
     <div class="preview" id="preview" style="display:none">
       <div class="preview-label">Vista previa del saludo:</div>
       <div class="preview-text">"Querido(a) <span id="preview-name"></span>, estás invitado(a)"</div>
@@ -60,11 +68,17 @@
     const input = document.getElementById('name-input');
     const output = document.getElementById('link-output');
     const copyBtn = document.getElementById('copy-btn');
+    const waBtn = document.getElementById('wa-btn');
+    const copyMsgBtn = document.getElementById('copy-msg-btn');
     const preview = document.getElementById('preview');
     const previewName = document.getElementById('preview-name');
 
     function makeLink(name) {
       return BASE + '?n=' + encodeURIComponent(name);
+    }
+
+    function makeMessage(name, link) {
+      return `¡Hola ${name}! 💫\n\n¡Estás invitado(a) a los XV Años de Jimena! 🧚✨\n\n📅 25 de Julio de 2026\n📍 Salón Jardín El Carmen, Santo Tomás Hueyotlipan\n💧 Tema: Silvermist — Hada del Agua\n\nAquí está tu invitación personalizada:\n${link}\n\n¡Te esperamos! 🎉`;
     }
 
     input.addEventListener('input', () => {
@@ -73,36 +87,49 @@
         const link = makeLink(name);
         output.textContent = link;
         copyBtn.disabled = false;
+        waBtn.disabled = false;
+        copyMsgBtn.disabled = false;
         preview.style.display = 'block';
         previewName.textContent = name;
       } else {
         output.textContent = 'Escribe un nombre arriba...';
         copyBtn.disabled = true;
+        waBtn.disabled = true;
+        copyMsgBtn.disabled = true;
         preview.style.display = 'none';
       }
     });
 
-    copyBtn.addEventListener('click', async () => {
-      const link = output.textContent;
+    async function copyText(text, btn, label) {
       try {
-        await navigator.clipboard.writeText(link);
-        copyBtn.textContent = '✅ Copiado!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copiar link';
-          copyBtn.classList.remove('copied');
-        }, 2000);
+        await navigator.clipboard.writeText(text);
       } catch {
-        // Fallback
         const ta = document.createElement('textarea');
-        ta.value = link;
+        ta.value = text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.textContent = '✅ Copiado!';
-        setTimeout(() => { copyBtn.textContent = '📋 Copiar link'; }, 2000);
       }
+      const orig = btn.textContent;
+      btn.textContent = '✅ Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    }
+
+    copyBtn.addEventListener('click', () => copyText(output.textContent, copyBtn, '📋 Copiar link'));
+
+    copyMsgBtn.addEventListener('click', () => {
+      const name = input.value.trim();
+      const link = makeLink(name);
+      copyText(makeMessage(name, link), copyMsgBtn, '📝 Copiar mensaje');
+    });
+
+    waBtn.addEventListener('click', () => {
+      const name = input.value.trim();
+      const link = makeLink(name);
+      const msg = makeMessage(name, link);
+      window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
     });
 
     // Batch generation
