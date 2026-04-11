@@ -98,12 +98,12 @@ const pageUrl = `${Astro.site}`;
     <!-- Floating music button -->
     <button
       id="music-btn"
-      class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white text-xl hover:bg-white/30 transition-all shadow-lg"
+      class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-[#c0c0c0]/50 flex items-center justify-center text-white text-xl hover:bg-white/30 transition-all shadow-lg"
       aria-label="Reproducir música"
     >
       🎵
     </button>
-    <div id="yt-player-wrap" class="fixed bottom-20 right-6 z-50 hidden rounded-xl overflow-hidden shadow-2xl border border-white/20">
+    <div id="yt-player-wrap" class="fixed -top-[9999px] -left-[9999px] w-0 h-0 overflow-hidden">
       <div id="yt-player"></div>
     </div>
 
@@ -133,15 +133,16 @@ const pageUrl = `${Astro.site}`;
 
       (window as any).onYouTubeIframeAPIReady = () => {
         player = new (window as any).YT.Player('yt-player', {
-          height: '1',
-          width: '1',
+          height: '200',
+          width: '200',
           videoId: '8a2gCnF2Nq4',
-          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 0 },
+          playerVars: { autoplay: 0, loop: 1, playlist: '8a2gCnF2Nq4', controls: 0, origin: window.location.origin },
           events: {
             onReady: () => console.log('YT player ready'),
             onStateChange: (e: any) => {
               if (e.data === 0) player.playVideo(); // loop
-            }
+            },
+            onError: (e: any) => console.error('YT error', e.data)
           }
         });
       };
