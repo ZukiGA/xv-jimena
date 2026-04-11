@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  background: linear-gradient(180deg, #0a1e3d 0%, #0d2847 50%, #0a1e3d 100%);
+  background: linear-gradient(180deg, #1a3a5c 0%, #0d2847 50%, #1a3a5c 100%);
   color: var(--text-dark);
   min-height: 100vh;
 }
