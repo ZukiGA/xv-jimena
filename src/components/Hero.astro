@@ -1,71 +1,69 @@
 ---
-// Hero section — Silvermist water fairy theme
+// Hero section — Silvermist water fairy theme with photo background
 ---
 
 <section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-  <!-- Water/mist background particles -->
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img src="/images/bg/hero-mountain.jpg" alt="" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60"></div>
+  </div>
+
+  <!-- Sparkle particles -->
   <div class="absolute inset-0 pointer-events-none">
     <div class="sparkle" style="top: 15%; left: 20%;"></div>
     <div class="sparkle" style="top: 30%; left: 70%; animation-delay: 0.5s;"></div>
     <div class="sparkle" style="top: 60%; left: 40%; animation-delay: 1s;"></div>
     <div class="sparkle" style="top: 45%; left: 85%; animation-delay: 1.5s;"></div>
     <div class="sparkle" style="top: 80%; left: 15%; animation-delay: 0.8s;"></div>
-    <div class="sparkle" style="top: 20%; left: 55%; animation-delay: 1.2s;"></div>
-    <div class="sparkle" style="top: 70%; left: 75%; animation-delay: 0.3s;"></div>
-  </div>
-
-  <!-- Decorative wings/water drops -->
-  <div class="absolute top-10 left-1/2 -translate-x-1/2 text-water-deep/30 text-8xl select-none animate-float">
-    ✧
   </div>
 
   <div class="relative z-10 px-6 max-w-2xl mx-auto">
     <!-- Pre-title -->
-    <p class="text-water-mid font-[Montserrat] text-sm tracking-[0.3em] uppercase mb-4 animate-fade-in-up">
+    <p class="text-white/80 font-[Montserrat] text-sm tracking-[0.3em] uppercase mb-4 animate-fade-in-up">
       Con la bendición de Dios y de mis padres
     </p>
 
     <!-- Divider -->
     <div class="flex items-center justify-center gap-4 mb-6 animate-fade-in-up" style="animation-delay: 0.2s">
-      <span class="h-px w-16 bg-silver"></span>
-      <span class="text-water-deep text-xl">❀</span>
-      <span class="h-px w-16 bg-silver"></span>
+      <span class="h-px w-16 bg-white/50"></span>
+      <span class="text-white/70 text-xl">❀</span>
+      <span class="h-px w-16 bg-white/50"></span>
     </div>
 
     <!-- Name -->
-    <h1 class="text-6xl md:text-8xl font-light text-water-deep mb-2 animate-fade-in-up" style="animation-delay: 0.4s">
+    <h1 class="text-6xl md:text-8xl font-light text-white mb-2 animate-fade-in-up drop-shadow-lg" style="animation-delay: 0.4s">
       Jimena
     </h1>
 
     <!-- XV -->
     <div class="relative inline-block animate-fade-in-up" style="animation-delay: 0.6s">
-      <span class="text-3xl md:text-4xl font-light text-water-mid tracking-widest">XV AÑOS</span>
-      <div class="animate-shimmer absolute inset-0 rounded-full pointer-events-none"></div>
+      <span class="text-3xl md:text-4xl font-light text-white/90 tracking-widest">XV AÑOS</span>
     </div>
 
     <!-- Silvermist fairy element -->
     <div class="mt-8 mb-6 animate-fade-in-up" style="animation-delay: 0.8s">
-      <p class="text-water-mid/70 italic text-lg">
+      <p class="text-white/70 italic text-lg">
         ✦ Hada del Agua ✦
       </p>
-      <p class="text-accent-lavender/60 font-[Montserrat] text-xs tracking-[0.2em] uppercase mt-1">
+      <p class="text-white/50 font-[Montserrat] text-xs tracking-[0.2em] uppercase mt-1">
         Silvermist
       </p>
     </div>
 
     <!-- Date -->
     <div class="mt-8 animate-fade-in-up" style="animation-delay: 1s">
-      <p class="text-water-deep font-[Montserrat] text-base tracking-[0.15em]">
+      <p class="text-white font-[Montserrat] text-base tracking-[0.15em]">
         25 de Julio de 2026
       </p>
-      <p class="text-water-mid/60 font-[Montserrat] text-sm mt-1">
+      <p class="text-white/60 font-[Montserrat] text-sm mt-1">
         Salón El Carmen · Santo Tomás Hueyotlipan
       </p>
     </div>
 
     <!-- Scroll indicator -->
     <div class="mt-16 animate-float">
-      <a href="#countdown" class="text-water-deep/50 hover:text-water-mid transition-colors">
+      <a href="#countdown" class="text-white/40 hover:text-white/70 transition-colors">
         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>

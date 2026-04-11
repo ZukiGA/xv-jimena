@@ -2,13 +2,13 @@
 // Timeline of the event
 ---
 
-<section id="programa" class="py-20 px-6">
+<section id="programa" class="section-photo py-20 px-6" style="background-image: url('/images/bg/snow-mountain.jpg');">
   <div class="max-w-2xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-light text-water-deep mb-2">Programa</h2>
+    <h2 class="text-3xl md:text-4xl font-light text-white mb-2">Programa</h2>
     <div class="flex items-center justify-center gap-4 mb-12">
-      <span class="h-px w-12 bg-silver"></span>
-      <span class="text-water-deep text-sm">✧</span>
-      <span class="h-px w-12 bg-silver"></span>
+      <span class="h-px w-12 bg-white/40"></span>
+      <span class="text-white text-sm">✧</span>
+      <span class="h-px w-12 bg-white/40"></span>
     </div>
 
     <div class="relative">
@@ -27,8 +27,8 @@
         <div class={`relative flex items-center mb-8 ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
           <div class={`w-5/12 ${i % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
             <p class="text-water-mid font-[Montserrat] text-sm font-medium">{item.time}</p>
-            <h3 class="text-lg text-water-deep font-semibold">{item.title}</h3>
-            <p class="text-water-mid/60 text-sm">{item.desc}</p>
+            <h3 class="text-lg text-white font-semibold">{item.title}</h3>
+            <p class="text-white/60 text-sm">{item.desc}</p>
           </div>
           <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-water-mist border-2 border-water-light rounded-full flex items-center justify-center text-lg z-10">
             {item.icon}
