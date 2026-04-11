@@ -377,7 +377,7 @@
       // --- Phase 1: Impact + fade overlay to reveal hero ---
       if (phase >= 1) {
         // Fade out black overlay to reveal hero behind
-        overlayAlpha = Math.max(0, overlayAlpha - 0.025);
+        overlayAlpha = Math.max(0, overlayAlpha - 0.018);
 
         // Update ripples
         for (let i = ripples.length - 1; i >= 0; i--) {
@@ -431,7 +431,9 @@
 
         // End when overlay fully transparent and particles mostly gone
         if (overlayAlpha <= 0 && particles.length < 10) {
-          endEntrance();
+          // Hold for a moment to appreciate, then end
+          setTimeout(() => endEntrance(), 800);
+          phase = 2;
           return;
         }
       }
