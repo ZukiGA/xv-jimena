@@ -6,7 +6,7 @@
   --water-mid: #0c8ce9;
   --water-light: #3aacff;
   --water-shimmer: #0c8ce910;
-  --water-mist: #f2f5f7;
+  --water-mist: #dceefb;
   --silver: #9ca3af;
   --silver-light: #e5e7eb;
   --fairy-glow: #edf4fa;
@@ -20,7 +20,7 @@
   --color-water-mid: #0c8ce9;
   --color-water-light: #3aacff;
   --color-water-shimmer: #0c8ce910;
-  --color-water-mist: #f2f5f7;
+  --color-water-mist: #dceefb;
   --color-silver: #9ca3af;
   --color-silver-light: #e5e7eb;
   --color-fairy-glow: #edf4fa;
@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  background: #f2f5f7;
+  background: #dceefb;
   color: var(--text-dark);
   min-height: 100vh;
 }
