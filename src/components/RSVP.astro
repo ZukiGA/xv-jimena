@@ -88,10 +88,40 @@
 </section>
 
 <script>
-  document.getElementById('rsvp-form')?.addEventListener('submit', (e) => {
+  document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    form.classList.add('hidden');
-    document.getElementById('rsvp-success')?.classList.remove('hidden');
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      guests: formData.get('guests'),
+      attending: formData.get('attending'),
+      message: formData.get('message') || ''
+    };
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      // TODO: Replace with your Google Apps Script Web App URL
+      const GOOGLE_SHEETS_URL = 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_URL';
+      
+      if (GOOGLE_SHEETS_URL !== 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_URL') {
+        await fetch(GOOGLE_SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      }
+      
+      form.classList.add('hidden');
+      document.getElementById('rsvp-success')?.classList.remove('hidden');
+    } catch (err) {
+      btn.textContent = 'Confirmar Asistencia';
+      btn.disabled = false;
+      alert('Error al enviar. Intenta de nuevo.');
+    }
   });
 </script>

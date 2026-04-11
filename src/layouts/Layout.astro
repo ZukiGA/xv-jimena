@@ -6,6 +6,8 @@ interface Props {
   lang?: string;
 }
 const { title, description = 'XV Años de Jimena — 25 de Julio 2026', lang = 'es' } = Astro.props;
+const ogImage = `${Astro.site}xv-jimena/images/bg/hero-mountain.jpg`;
+const pageUrl = `${Astro.site}xv-jimena/`;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -14,12 +16,57 @@ const { title, description = 'XV Años de Jimena — 25 de Julio 2026', lang = '
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+
+    <!-- OG Tags -->
+    <meta property="og:title" content="XV Años de Jimena ✨🧚" />
+    <meta property="og:description" content="Estás invitada(o) a celebrar los XV Años de Jimena — 25 de Julio 2026 💧" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter/WhatsApp -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="XV Años de Jimena ✨🧚" />
+    <meta name="twitter:description" content="Estás invitada(o) a celebrar los XV Años de Jimena — 25 de Julio 2026 💧" />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body class="antialiased overflow-x-hidden">
     <slot />
+
+    <!-- Floating music button -->
+    <button
+      id="music-btn"
+      class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white text-xl hover:bg-white/30 transition-all shadow-lg"
+      aria-label="Reproducir música"
+    >
+      🎵
+    </button>
+    <audio id="bg-music" loop preload="none">
+      <!-- Using YouTube audio isn't possible directly, so we'll use a Spotify embed approach -->
+    </audio>
+
+    <!-- Personalized name + WhatsApp share -->
+    <script>
+      // Read ?n= param for personalized greeting
+      const params = new URLSearchParams(window.location.search);
+      const invitado = params.get('n');
+      if (invitado) {
+        const nameEl = document.getElementById('guest-name');
+        if (nameEl) {
+          nameEl.textContent = decodeURIComponent(invitado.replace(/\+/g, ' '));
+          nameEl.parentElement?.classList.remove('hidden');
+        }
+      }
+
+      // Music button - opens Spotify/YouTube
+      document.getElementById('music-btn')?.addEventListener('click', () => {
+        window.open('https://open.spotify.com/track/5PgQUWkGftLINO7KkFytlO', '_blank');
+      });
+    </script>
   </body>
 </html>
 
