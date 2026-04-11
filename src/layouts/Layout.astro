@@ -45,9 +45,7 @@ const pageUrl = `${Astro.site}xv-jimena/`;
     >
       🎵
     </button>
-    <audio id="bg-music" loop preload="none">
-      <!-- Using YouTube audio isn't possible directly, so we'll use a Spotify embed approach -->
-    </audio>
+    <div id="music-container"></div>
 
     <!-- Personalized name + WhatsApp share -->
     <script>
@@ -62,9 +60,24 @@ const pageUrl = `${Astro.site}xv-jimena/`;
         }
       }
 
-      // Music button - opens Spotify/YouTube
-      document.getElementById('music-btn')?.addEventListener('click', () => {
-        window.open('https://open.spotify.com/track/5PgQUWkGftLINO7KkFytlO', '_blank');
+      // Music button - plays YouTube audio via iframe
+      let musicPlaying = false;
+      const musicBtn = document.getElementById('music-btn');
+      const musicContainer = document.getElementById('music-container');
+      
+      musicBtn?.addEventListener('click', () => {
+        if (!musicPlaying) {
+          // Create hidden YouTube iframe with autoplay
+          if (musicContainer) {
+            musicContainer.innerHTML = '<iframe src="https://www.youtube.com/embed/8a2gCnF2Nq4?autoplay=1&loop=1&playlist=8a2gCnF2Nq4" allow="autoplay" class="hidden" width="0" height="0"></iframe>';
+          }
+          musicBtn.textContent = '🔇';
+          musicPlaying = true;
+        } else {
+          if (musicContainer) musicContainer.innerHTML = '';
+          musicBtn.textContent = '🎵';
+          musicPlaying = false;
+        }
       });
     </script>
   </body>
