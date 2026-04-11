@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Countdown from '../components/Countdown.astro';
 import EventDetails from '../components/EventDetails.astro';
-import AddToCalendar from '../components/AddToCalendar.astro';
 import Timeline from '../components/Timeline.astro';
 import Gallery from '../components/Gallery.astro';
 import DressCode from '../components/DressCode.astro';
@@ -11,35 +10,25 @@ import GiftRegistry from '../components/GiftRegistry.astro';
 import RSVP from '../components/RSVP.astro';
 import AddToCalendar from '../components/AddToCalendar.astro';
 import Location from '../components/Location.astro';
-import Footer from '../components/Footer.astro';
 import PhotoDivider from '../components/PhotoDivider.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="XV Años de Jimena — 25 de Julio 2026">
   <Hero />
   <Countdown />
-
-  <PhotoDivider src="/images/bg/lake.jpg" alt="Lago con montañas" />
-
+  <PhotoDivider src="/xv-jimena/images/bg/lake.jpg" alt="Lago con montañas" />
   <EventDetails />
-  <AddToCalendar />
-
-  <PhotoDivider src="/images/bg/ice-cave.jpg" alt="Cueva de hielo" />
-
   <Timeline />
+  <PhotoDivider src="/xv-jimena/images/bg/ice-cave.jpg" alt="Cueva de hielo" />
+  <Gallery />
+  <PhotoDivider src="/xv-jimena/images/bg/river.jpg" alt="Río" />
   <DressCode />
-
-  <PhotoDivider src="/images/bg/cable-car.jpg" alt="Teleférico" />
-
   <Location />
   <AddToCalendar />
+  <PhotoDivider src="/xv-jimena/images/bg/cable-car.jpg" alt="Teleférico" />
   <GiftRegistry />
-
-  <PhotoDivider src="/images/bg/snow-valley.jpg" alt="Valle nevado" />
-
   <RSVP />
-
-  <PhotoDivider src="/images/bg/river.jpg" alt="Río" height="h-[40vh]" />
-
+  <PhotoDivider src="/xv-jimena/images/bg/snow-valley.jpg" alt="Valle nevado" height="h-[40vh]" />
   <Footer />
 </Layout>

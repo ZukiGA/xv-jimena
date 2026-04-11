@@ -14,13 +14,31 @@
 
     <!-- Placeholder grid for photos -->
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {Array.from({ length: 9 }).map((_, i) => (
-        <div class="aspect-square rounded-2xl bg-water-shimmer/30 border border-white/40 flex items-center justify-center group hover:scale-[1.02] transition-transform duration-300 overflow-hidden">
-          <div class="text-center p-4">
-            <p class="text-white/40 text-4xl mb-2">✧</p>
-            <p class="text-water-mid/30 font-[Montserrat] text-xs tracking-wider">Foto {i + 1}</p>
+      {[
+        { label: 'Bebé 👶', file: '1' },
+        { label: '2-3 años', file: '2' },
+        { label: '4-5 años', file: '3' },
+        { label: 'Primaria 📚', file: '4' },
+        { label: 'Con familia 💕', file: '5' },
+        { label: 'Con amigas 👯', file: '6' },
+        { label: 'Secundaria 🎓', file: '7' },
+        { label: 'Reciente ✨', file: '8' },
+        { label: 'La quinceañera 🧚', file: '9' },
+      ].map((item) => (
+        <div class="aspect-square rounded-2xl overflow-hidden border border-white/40 shadow-md group hover:scale-[1.02] transition-transform duration-300">
+          <img
+            src={`/xv-jimena/images/gallery/${item.file}.jpg`}
+            alt={item.label}
+            class="w-full h-full object-cover hidden"
+            loading="lazy"
+            onload="this.classList.remove('hidden'); this.nextElementSibling.classList.add('hidden')"
+          />
+          <div class="w-full h-full bg-water-shimmer/30 flex items-center justify-center">
+            <div class="text-center p-4">
+              <p class="text-white/40 text-4xl mb-2">✧</p>
+              <p class="text-water-mid/30 font-[Montserrat] text-xs tracking-wider">{item.label}</p>
+            </div>
           </div>
-          <!-- Replace with: <img src={`/photos/jimena-${i + 1}.jpg`} class="w-full h-full object-cover" /> -->
         </div>
       ))}
     </div>
