@@ -297,18 +297,31 @@ const pageUrl = `${Astro.site}`;
               }
             }
           });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05, rootMargin: '0px 0px 200px 0px' });
 
         allSections.forEach((s, i) => {
           if (i > 0) {
             revealObserver.observe(s);
-            // Reveal sections already in viewport
+            // Reveal sections already in or above viewport (handles hash navigation)
             const rect = s.getBoundingClientRect();
-            if (rect.top < window.innerHeight) {
+            if (rect.top < window.innerHeight + 200 || rect.bottom < 0) {
               s.classList.add('revealed');
             }
           }
         });
+
+        // If page loaded with a hash, reveal everything above it
+        if (window.location.hash) {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            let el = target.previousElementSibling;
+            while (el) {
+              if (el.classList?.contains('reveal-section')) el.classList.add('revealed');
+              el = el.previousElementSibling;
+            }
+            target.classList?.add('revealed');
+          }
+        }
       }
 
       // Run after DOM is ready
