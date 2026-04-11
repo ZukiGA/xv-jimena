@@ -35,7 +35,7 @@ html {
 
 body {
   font-family: 'Cormorant Garamond', 'Georgia', serif;
-  background: linear-gradient(180deg, #1a3a5c 0%, #0d2847 50%, #1a3a5c 100%);
+  background: linear-gradient(180deg, #a7d3f3 0%, #8ec5ed 50%, #7bb8e8 100%);
   color: var(--text-dark);
   min-height: 100vh;
 }
@@ -109,9 +109,9 @@ body {
 
 /* Glass card */
 .glass-card {
-  background: rgba(10, 30, 61, 0.6);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 1rem;
 }
 
@@ -128,9 +128,9 @@ body {
   top: 0;
   width: 3px;
   height: 12px;
-  background: linear-gradient(to bottom, transparent, rgba(120, 200, 255, 0.8));
+  background: linear-gradient(to bottom, transparent, rgba(10, 80, 160, 0.5));
   border-radius: 50%;
-  box-shadow: 0 0 4px rgba(120, 200, 255, 0.4);
+  box-shadow: 0 0 4px rgba(10, 80, 160, 0.3);
   animation: dropFall linear infinite;
   pointer-events: none;
   z-index: 9998;

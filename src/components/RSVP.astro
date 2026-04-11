@@ -4,35 +4,35 @@
 
 <section id="confirmar" class="py-20 px-6">
   <div class="max-w-xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-light text-white mb-2">Confirmar Asistencia</h2>
+    <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Confirmar Asistencia</h2>
     <div class="flex items-center justify-center gap-4 mb-8">
       <span class="h-px w-12 bg-white/40"></span>
-      <span class="text-white/60 text-sm">✧</span>
+      <span class="text-[#0a2540]/50 text-sm">✧</span>
       <span class="h-px w-12 bg-white/40"></span>
     </div>
 
-    <p class="text-white/70 italic mb-10">
-      Por favor confirma tu asistencia antes del <strong class="text-white">10 de Julio de 2026</strong>
+    <p class="text-[#0a2540]/60 italic mb-10">
+      Por favor confirma tu asistencia antes del <strong class="text-[#0a2540]">10 de Julio de 2026</strong>
     </p>
 
     <form id="rsvp-form" class="p-6 rounded-2xl bg-white/10 border border-white/20 space-y-4 text-left">
       <div>
-        <label class="block text-white font-[Montserrat] text-sm mb-1">Nombre completo</label>
+        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Nombre completo</label>
         <input
           type="text"
           name="name"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-white placeholder-white/40"
+          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540] placeholder-white/40"
           placeholder="Tu nombre"
         />
       </div>
 
       <div>
-        <label class="block text-white font-[Montserrat] text-sm mb-1">Número de invitados</label>
+        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Número de invitados</label>
         <select
           name="guests"
           required
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-white"
+          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540]"
         >
           <option value="" class="text-gray-800">Selecciona</option>
           <option value="1" class="text-gray-800">1 persona</option>
@@ -44,17 +44,17 @@
       </div>
 
       <div>
-        <label class="block text-white font-[Montserrat] text-sm mb-1">¿Asistirás?</label>
+        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">¿Asistirás?</label>
         <div class="flex gap-4">
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="yes" required class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-white text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
+            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-[#0a2540] text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
               ¡Ahí estaré! ✨
             </div>
           </label>
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="no" class="peer hidden" />
-            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-white text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
+            <div class="px-4 py-3 rounded-xl bg-white/10 border border-white/30 text-[#0a2540] text-center peer-checked:bg-white/30 peer-checked:border-white/50 transition-all">
               No podré ir 😢
             </div>
           </label>
@@ -62,18 +62,18 @@
       </div>
 
       <div>
-        <label class="block text-white font-[Montserrat] text-sm mb-1">Mensaje para Jimena (opcional)</label>
+        <label class="block text-[#0a2540] font-[Montserrat] text-sm mb-1">Mensaje para Jimena (opcional)</label>
         <textarea
           name="message"
           rows="3"
-          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-white placeholder-white/40 resize-none"
+          class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 focus:border-white/60 focus:outline-none transition-colors text-[#0a2540] placeholder-white/40 resize-none"
           placeholder="Escribe un mensaje especial..."
         ></textarea>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 bg-white/25 backdrop-blur-sm text-white border border-white/40 rounded-xl font-[Montserrat] text-sm tracking-wider hover:bg-white/35 transition-colors"
+        class="w-full py-3 bg-white/25 backdrop-blur-sm text-[#0a2540] border border-white/40 rounded-xl font-[Montserrat] text-sm tracking-wider hover:bg-white/35 transition-colors"
       >
         Confirmar Asistencia
       </button>
@@ -81,8 +81,8 @@
 
     <div id="rsvp-success" class="hidden mt-8 p-6 rounded-2xl bg-white/10 border border-white/20">
       <p class="text-2xl mb-2">✨</p>
-      <p class="text-white text-lg">¡Gracias por confirmar!</p>
-      <p class="text-white/60 text-sm mt-1">Te esperamos con mucha ilusión</p>
+      <p class="text-[#0a2540] text-lg">¡Gracias por confirmar!</p>
+      <p class="text-[#0a2540]/50 text-sm mt-1">Te esperamos con mucha ilusión</p>
     </div>
   </div>
 </section>
