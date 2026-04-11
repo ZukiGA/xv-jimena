@@ -2,7 +2,7 @@
 // Hero — cinematic, Silvermist on top
 ---
 
-<section class="relative h-[100dvh] flex flex-col justify-between text-center overflow-hidden">
+<section class="relative h-[100dvh] text-center overflow-hidden">
   <!-- Background image -->
   <div class="absolute inset-0">
     <img src="/images/bg/hero-mountain.jpg" alt="" class="w-full h-full object-cover object-[40%_30%]" />
@@ -19,8 +19,8 @@
   </div>
 
   <!-- TOP: Silvermist brand + personalized greeting -->
-  <div class="relative z-10 px-6 pt-10 animate-fade-in-up">
-    <div class="hidden mb-6" id="greeting-wrap">
+  <div class="absolute top-8 left-0 right-0 z-10 px-6 animate-fade-in-up">
+    <div class="hidden mb-4" id="greeting-wrap">
       <p class="text-white/60 font-[Montserrat] text-xs tracking-[0.3em] uppercase">
         <span id="guest-name" class="text-white/80"></span>, estás invitada(o)
       </p>
@@ -36,8 +36,8 @@
     </p>
   </div>
 
-  <!-- MIDDLE: Name + XV -->
-  <div class="relative z-10 px-6 -mt-60 animate-fade-in-up" style="animation-delay: 0.3s">
+  <!-- MIDDLE: Name + XV — positioned at 28% from top -->
+  <div class="absolute top-[28%] left-0 right-0 z-10 px-6 animate-fade-in-up" style="animation-delay: 0.3s">
     <h1 class="text-7xl md:text-9xl font-light text-white mb-3 drop-shadow-lg text-reflection" data-text="Jimena">
       Jimena
     </h1>
@@ -45,7 +45,7 @@
   </div>
 
   <!-- BOTTOM: Date + Location + Scroll -->
-  <div class="relative z-10 px-6 pb-12 animate-fade-in-up" style="animation-delay: 0.6s">
+  <div class="absolute bottom-8 left-0 right-0 z-10 px-6 animate-fade-in-up" style="animation-delay: 0.6s">
     <p class="text-white/90 font-[Montserrat] text-sm tracking-[0.25em]">
       25 · 07 · 2026
     </p>
@@ -53,7 +53,7 @@
       Santo Tomás Hueyotlipan, Puebla
     </p>
 
-    <div class="mt-10 animate-float">
+    <div class="mt-8 animate-float">
       <a href="#countdown" class="text-white/40 hover:text-white/60 transition-colors">
         <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
