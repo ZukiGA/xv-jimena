@@ -1,5 +1,5 @@
 ---
-// Gallery — clean grid, no labels
+// Gallery — clean grid
 ---
 
 <section id="galeria" class="py-20 px-6 section-photo" style="background-image: url('/images/bg/snow-mountain.jpg')">
@@ -8,15 +8,14 @@
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
       {Array.from({ length: 9 }).map((_, i) => (
-        <div class="aspect-square rounded-lg overflow-hidden group">
+        <div class="gallery-slot aspect-square rounded-lg overflow-hidden">
           <img
             src={`/images/gallery/${i + 1}.jpg`}
             alt=""
-            class="w-full h-full object-cover hidden group-hover:scale-105 transition-transform duration-500"
+            class="gallery-img w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             loading="lazy"
-            onload="this.classList.remove('hidden'); this.nextElementSibling.classList.add('hidden')"
           />
-          <div class="w-full h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg flex items-center justify-center">
+          <div class="gallery-placeholder w-full h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg flex items-center justify-center">
             <span class="text-white/15 text-2xl">✧</span>
           </div>
         </div>
@@ -24,3 +23,18 @@
     </div>
   </div>
 </section>
+
+<style>
+  .gallery-slot {
+    position: relative;
+  }
+  .gallery-img {
+    position: relative;
+    z-index: 1;
+  }
+  .gallery-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+</style>
