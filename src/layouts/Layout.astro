@@ -379,6 +379,21 @@ const pageUrl = `${Astro.site}`;
         requestAnimationFrame(initScrollReveal);
       }
 
+      // === PARALLAX PHOTO DIVIDERS ===
+      const dividers = document.querySelectorAll('.photo-divider');
+      function updateParallax() {
+        const vh = window.innerHeight;
+        dividers.forEach(div => {
+          const rect = div.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > vh) return;
+          const progress = 1 - (rect.bottom / (vh + rect.height));
+          const img = div.querySelector('.photo-divider-img') as HTMLElement;
+          if (img) img.style.transform = `translateY(${(progress - 0.5) * 15}%)`;
+        });
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      updateParallax();
+
       // === MICRO-ANIMATIONS ===
 
       // 1. Staggered text reveal — wrap h2 words in spans
