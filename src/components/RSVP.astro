@@ -2,12 +2,11 @@
 // RSVP form — clean
 ---
 
-<section id="confirmar" class="py-20 px-6">
+<section id="confirmar" class="py-16 px-6">
   <div class="max-w-md mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">¿Vienes?</h2>
-    <div class="flex items-center justify-center gap-0 mb-8">
-      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
-      <span class="h-px w-12 bg-[#c0c0c0]/60"></span>
+    <div class="flex items-center justify-center mb-8">
+      <span class="h-px w-24 bg-[#c0c0c0]/40"></span>
     </div>
 
     <p class="text-[#0a2540]/50 text-sm mb-10">
@@ -16,25 +15,23 @@
 
     <form id="rsvp-form" class="space-y-4 text-left">
       <div>
-        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Nombre</label>
         <input
           type="text"
           name="name"
           required
-          class="w-full px-4 py-3 rounded-lg bg-white/30 border border-[#c0c0c0]/40 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/20"
-          placeholder="Tu nombre"
+          class="w-full px-4 py-3 rounded-lg bg-white/30 border border-[#c0c0c0]/40 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/30"
+          placeholder="¿Cómo te llamas?"
         />
       </div>
 
       <div>
-        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Personas</label>
         <select
           name="guests"
           required
           class="w-full px-4 py-3 rounded-lg bg-white/30 border border-[#c0c0c0]/40 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540]"
         >
-          <option value="" class="text-gray-800">—</option>
-          <option value="1" class="text-gray-800">1</option>
+          <option value="" class="text-gray-800">¿Cuántos vienen?</option>
+          <option value="1" class="text-gray-800">Solo yo</option>
           <option value="2" class="text-gray-800">2</option>
           <option value="3" class="text-gray-800">3</option>
           <option value="4" class="text-gray-800">4</option>
@@ -43,7 +40,6 @@
       </div>
 
       <div>
-        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Asistencia</label>
         <div class="flex gap-3">
           <label class="flex-1 cursor-pointer">
             <input type="radio" name="attending" value="yes" required class="peer hidden" />
@@ -61,12 +57,11 @@
       </div>
 
       <div>
-        <label class="block text-[#0a2540]/60 font-[Montserrat] text-xs tracking-wider mb-1">Mensaje <span class="text-[#0a2540]/30">opcional</span></label>
         <textarea
           name="message"
           rows="2"
-          class="w-full px-4 py-3 rounded-lg bg-white/20 border border-[#c0c0c0]/30 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/20 resize-none"
-          placeholder="..."
+          class="w-full px-4 py-3 rounded-lg bg-white/20 border border-[#c0c0c0]/30 focus:border-[#0a2540]/30 focus:outline-none transition-colors text-[#0a2540] placeholder-[#0a2540]/30 resize-none"
+          placeholder="¿Algo que quieras decirme? 💬"
         ></textarea>
       </div>
 

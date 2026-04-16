@@ -2,14 +2,10 @@
 // Countdown timer — July 25, 2026
 ---
 
-<section id="countdown" class="py-20 px-6">
+<section id="countdown" class="py-14 px-6">
   <div class="max-w-3xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Cada día más cerca</h2>
-    <div class="flex items-center justify-center gap-4 mb-10">
-      <span class="h-px w-12 bg-white/40"></span>
-      <span class="text-[#0a2540]/50 text-sm">✧</span>
-      <span class="h-px w-12 bg-white/40"></span>
-    </div>
+    <div class="flex justify-center mb-8"><span class="h-px w-24 bg-[#c0c0c0]/40"></span></div>
 
     <div id="countdown-timer" class="flex justify-center gap-4 md:gap-8">
       <div class="flex flex-col items-center">
@@ -59,5 +55,3 @@
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 1000);
-</script>
