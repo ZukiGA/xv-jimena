@@ -1,0 +1,80 @@
+---
+// MessageWall — live messages from RSVP responses
+---
+
+<section id="mensajes" class="py-14 px-6">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-light text-[#0a2540] mb-2">Mensajes para Jimena</h2>
+    <div class="flex justify-center mb-10"><span class="dew"></span></div>
+
+    <div id="wall-messages" class="space-y-4 min-h-[100px]">
+      <p class="text-[#0a2540]/20 text-sm">Cargando mensajes...</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .msg-bubble {
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(192,192,192,0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: msgAppear 0.6s ease forwards;
+  }
+  @keyframes msgAppear {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxIRuGWjZh2CJ8pFlOdjXq2W1OUpjv8muNa1H7TUTg_fJYrlSUcHcjStPo9YW-lVmqhkw/exec';
+
+  async function loadMessages() {
+    const container = document.getElementById('wall-messages')!;
+
+    try {
+      const res = await fetch(SHEET_URL + '?action=read');
+      const data = await res.json();
+
+      if (!data.rows) return;
+
+      // Filter only confirmed with a message
+      const messages = data.rows.filter((r: any) =>
+        r.attendance === 'yes' && r.message && r.message.trim()
+      );
+
+      if (messages.length === 0) {
+        container.innerHTML = '<p class="text-[#0a2540]/20 text-sm">Sé la primera en dejar un mensaje 💬</p>';
+        return;
+      }
+
+      container.innerHTML = messages.map((r: any, i: number) => `
+        <div class="msg-bubble" style="animation-delay: ${i * 0.1}s">
+          <p class="text-[#0a2540]/80 text-sm leading-relaxed">"${r.message}"</p>
+          <p class="text-[#0a2540]/30 text-xs font-[Montserrat] tracking-wider mt-2">— ${r.name || 'Anónimo'}</p>
+        </div>
+      `).join('');
+
+    } catch {
+      container.innerHTML = '<p class="text-[#0a2540]/20 text-sm">💬</p>';
+    }
+  }
+
+  // Load when section enters viewport
+  const wallObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        loadMessages();
+        wallObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const wallSection = document.getElementById('mensajes');
+  if (wallSection) wallObserver.observe(wallSection);
+</script>
