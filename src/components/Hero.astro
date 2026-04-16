@@ -1,21 +1,24 @@
 ---
-// Hero — cinematic, Silvermist on top
+// Hero — cinematic parallax, Silvermist
 ---
 
-<section class="relative h-[100dvh] text-center overflow-hidden">
-  <!-- Background image -->
-  <div class="absolute inset-0">
+<section id="hero" class="relative h-[100dvh] text-center overflow-hidden">
+  <!-- Background image — parallax target -->
+  <div id="hero-bg" class="absolute inset-0 will-change-transform" style="transform: scale(1.1);">
     <img src="/images/bg/hero-mountain.jpg" alt="" class="w-full h-full object-cover object-[40%_30%]" />
     <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/70"></div>
   </div>
 
-  <!-- Sparkle particles -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="sparkle" style="top: 15%; left: 20%;"></div>
-    <div class="sparkle" style="top: 30%; left: 70%; animation-delay: 0.5s;"></div>
-    <div class="sparkle" style="top: 60%; left: 40%; animation-delay: 1s;"></div>
-    <div class="sparkle" style="top: 45%; left: 85%; animation-delay: 1.5s;"></div>
-    <div class="sparkle" style="top: 80%; left: 15%; animation-delay: 0.8s;"></div>
+  <!-- Floating dew particles -->
+  <div id="hero-particles" class="absolute inset-0 pointer-events-none will-change-transform">
+    <span class="hero-dew" style="top: 12%; left: 18%;"></span>
+    <span class="hero-dew" style="top: 25%; left: 72%; animation-delay: 1.2s;"></span>
+    <span class="hero-dew" style="top: 55%; left: 35%; animation-delay: 2.4s;"></span>
+    <span class="hero-dew" style="top: 40%; left: 82%; animation-delay: 0.6s;"></span>
+    <span class="hero-dew" style="top: 75%; left: 12%; animation-delay: 1.8s;"></span>
+    <span class="hero-dew" style="top: 65%; left: 58%; animation-delay: 3s;"></span>
+    <span class="hero-dew" style="top: 20%; left: 48%; animation-delay: 0.3s;"></span>
+    <span class="hero-dew" style="top: 85%; left: 75%; animation-delay: 2.1s;"></span>
   </div>
 
   <!-- TOP: Silvermist brand + personalized greeting -->
@@ -28,7 +31,7 @@
 
     <div class="flex items-center justify-center gap-4 mb-3">
       <span class="h-px w-10 bg-[#c0c0c0]/40"></span>
-      <span class="text-[#c0c0c0]/50 text-sm">✧</span>
+      <span class="dew dew-sm" style="opacity: 0.4;"></span>
       <span class="h-px w-10 bg-[#c0c0c0]/40"></span>
     </div>
     <p class="text-[#c0c0c0]/80 font-[Montserrat] text-xs tracking-[0.4em] uppercase">
@@ -36,7 +39,7 @@
     </p>
   </div>
 
-  <!-- MIDDLE: Name + XV — positioned at 28% from top -->
+  <!-- MIDDLE: Name + XV -->
   <div class="absolute top-[17%] left-0 right-0 z-10 px-6 hero-text" style="opacity: 0;">
     <h1 class="text-7xl md:text-9xl font-light text-white mb-3 drop-shadow-lg text-reflection" data-text="Jimena">
       Jimena
@@ -63,8 +66,53 @@
   </div>
 </section>
 
+<style>
+  .hero-dew {
+    position: absolute;
+    width: 6px;
+    height: 9px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(167,211,243,0.4) 60%, rgba(10,80,160,0.15));
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 8px rgba(167,211,243,0.3), 0 1px 3px rgba(0,0,0,0.08);
+    animation: dewFloat 6s ease-in-out infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes dewFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-20px) scale(1.2); opacity: 0.7; }
+  }
+</style>
+
 <script>
-  // Show hero text after entrance is done (or immediately if already seen)
+  // Hero parallax on scroll
+  const heroBg = document.getElementById('hero-bg');
+  const heroParticles = document.getElementById('hero-particles');
+  const heroSection = document.getElementById('hero');
+
+  function heroParallax() {
+    if (!heroSection || !heroBg) return;
+    const rect = heroSection.getBoundingClientRect();
+    if (rect.bottom < 0) return; // offscreen
+
+    const scrolled = -rect.top;
+    const vh = window.innerHeight;
+    const progress = Math.max(0, Math.min(scrolled / vh, 1));
+
+    // Background: scale down + shift up (cinema zoom out)
+    const scale = 1.1 - progress * 0.15;
+    const translateY = progress * 30;
+    heroBg.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+
+    // Particles: move slower (different parallax layer)
+    if (heroParticles) {
+      heroParticles.style.transform = `translateY(${progress * 50}px)`;
+    }
+  }
+
+  window.addEventListener('scroll', heroParallax, { passive: true });
+
+  // Show hero text after entrance
   function showHeroText() {
     document.querySelectorAll('.hero-text').forEach(el => {
       (el as HTMLElement).style.opacity = '1';
@@ -75,7 +123,6 @@
   if (sessionStorage.getItem('xv-entrance-seen')) {
     showHeroText();
   } else {
-    // Wait for entrance to remove itself
     const observer = new MutationObserver(() => {
       if (!document.getElementById('magic-entrance')) {
         showHeroText();
