@@ -116,17 +116,30 @@
       form.classList.add('hidden');
       document.getElementById('rsvp-success')?.classList.remove('hidden');
       
-      // Confetti
-      const colors = ['#c0c0c0', '#0c8ce9', '#ffffff', '#a7d3f3', '#e8e8e8'];
-      for (let i = 0; i < 40; i++) {
-        const piece = document.createElement('div');
-        piece.classList.add('confetti-piece');
-        piece.style.left = Math.random() * 100 + 'vw';
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = Math.random() * 1.5 + 's';
-        piece.style.animationDuration = (2 + Math.random() * 2) + 's';
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 5000);
+      // Water splash burst
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      for (let i = 0; i < 30; i++) {
+        const drop = document.createElement('div');
+        const angle = (Math.PI * 2 * i) / 30 + (Math.random() - 0.5) * 0.3;
+        const dist = 60 + Math.random() * 140;
+        const size = 4 + Math.random() * 6;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist - 40 - Math.random() * 80; // bias upward
+        drop.style.cssText = `
+          position:fixed; left:${cx}px; top:${cy}px; width:${size}px; height:${size}px;
+          background:radial-gradient(circle, rgba(167,211,243,0.8), rgba(10,80,160,0.3));
+          border-radius:50%; z-index:999; pointer-events:none;
+          box-shadow: 0 0 ${size * 2}px rgba(120,200,255,0.4);
+          transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+          opacity: 1;
+        `;
+        document.body.appendChild(drop);
+        requestAnimationFrame(() => {
+          drop.style.transform = `translate(${tx}px, ${ty}px)`;
+          drop.style.opacity = '0';
+        });
+        setTimeout(() => drop.remove(), 1500);
       }
     } catch (err) {
       btn.textContent = 'Enviar';

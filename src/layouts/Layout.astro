@@ -130,11 +130,11 @@ const pageUrl = `${Astro.site}`;
       .water-drop {
         position: fixed;
         top: 0;
-        width: 3px;
-        height: 12px;
-        background: linear-gradient(to bottom, transparent, rgba(10, 80, 160, 0.5));
+        width: 4px;
+        height: 18px;
+        background: linear-gradient(to bottom, transparent, rgba(10, 80, 160, 0.3));
         border-radius: 50%;
-        box-shadow: 0 0 4px rgba(10, 80, 160, 0.3);
+        box-shadow: 0 0 6px rgba(10, 80, 160, 0.15);
         animation: dropFall linear infinite;
         pointer-events: none;
         z-index: 9998;
@@ -224,14 +224,14 @@ const pageUrl = `${Astro.site}`;
         const drop = document.createElement('div');
         drop.classList.add('water-drop');
         drop.style.left = Math.random() * 100 + 'vw';
-        drop.style.animationDuration = (3 + Math.random() * 4) + 's';
-        drop.style.animationDelay = Math.random() * 2 + 's';
+        drop.style.animationDuration = (5 + Math.random() * 6) + 's';
+        drop.style.animationDelay = Math.random() * 3 + 's';
         document.body.appendChild(drop);
-        setTimeout(() => drop.remove(), 8000);
+        setTimeout(() => drop.remove(), 12000);
       }
-      // Create drops periodically
-      setInterval(createDrop, 600);
-      for (let i = 0; i < 8; i++) setTimeout(createDrop, i * 200);
+      // Create drops periodically — slow, deliberate
+      setInterval(createDrop, 2000);
+      for (let i = 0; i < 3; i++) setTimeout(createDrop, i * 600);
 
       // Ripple on tap/click
       function doRipple(x: number, y: number) {
