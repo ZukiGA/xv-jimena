@@ -1,30 +1,50 @@
 ---
-// Add to Calendar button
+// Add to Calendar — polished
 ---
 
-<div class="text-center mt-8">
-  <a
-    id="add-cal"
-    href="#"
-    class="inline-flex items-center gap-2 px-6 py-3 glass-card text-white font-[Montserrat] text-sm tracking-wider hover:bg-white/20 transition-all"
-  >
-    📅 Agregar a mi Calendario
-  </a>
-</div>
+<section class="py-10 px-6">
+  <div class="text-center">
+    <button
+      id="add-cal"
+      class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-[#c0c0c0]/20 rounded-full text-[#0a2540] font-[Montserrat] text-sm tracking-wider hover:bg-white/20 transition-all"
+    >
+      <span class="dew-sm"></span>
+      Guardar la fecha
+    </button>
+  </div>
+</section>
 
 <script>
   document.getElementById('add-cal')?.addEventListener('click', (e) => {
     e.preventDefault();
+
+    // Get guest name from URL if available
+    const params = new URLSearchParams(window.location.search);
+    const guest = params.get('n');
+    const desc = guest
+      ? `${decodeURIComponent(guest.replace(/\\+/g, ' '))}, ¡te espero en mis XV!`
+      : '¡Estás invitada(o) a celebrar los XV Años de Jimena!';
+
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
       'PRODID:-//XV Jimena//ES',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
       'BEGIN:VEVENT',
-      'DTSTART:20260725T140000',
-      'DTEND:20260726T030000',
-      'SUMMARY:XV Años de Jimena ✨🧚',
-      'DESCRIPTION:¡Estás invitada(o) a celebrar los XV Años de Jimena!',
-      'LOCATION:Iglesia de Santo Tomás Hueyotlipan\\, Puebla',
+      'UID:xv-jimena-20260725@jimenaxv.com',
+      'DTSTART;TZID=America/Mexico_City:20260725T140000',
+      'DTEND;TZID=America/Mexico_City:20260726T020000',
+      'SUMMARY:XV Años de Jimena',
+      `DESCRIPTION:${desc}\\n\\nMisa: 2:00 PM — Iglesia de Santo Tomás Hueyotlipan\\nRecepción: 4:00 PM — Salón Jardín El Carmen`,
+      'LOCATION:Salón Jardín El Carmen\\, Calle 8 Sur 678\\, 75280 Santo Tomás Hueyotlipan\\, Puebla',
+      'GEO:19.1544;-98.2869',
+      'URL:https://jimenaxv.com',
+      'BEGIN:VALARM',
+      'TRIGGER:-P1D',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:¡Mañana son los XV de Jimena!',
+      'END:VALARM',
       'BEGIN:VALARM',
       'TRIGGER:-PT2H',
       'ACTION:DISPLAY',
@@ -32,9 +52,9 @@
       'END:VALARM',
       'END:VEVENT',
       'END:VCALENDAR'
-    ].join('\r\n');
+    ].join('\\r\\n');
 
-    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

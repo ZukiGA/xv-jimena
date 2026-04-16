@@ -207,16 +207,20 @@ const pageUrl = `${Astro.site}`;
 
     <!-- Personalized name + WhatsApp share -->
     <script>
-      // Read ?n= param for personalized greeting
+      // Read ?n= param for personalized greeting + RSVP pre-fill
       const params = new URLSearchParams(window.location.search);
       const invitado = params.get('n');
       if (invitado) {
+        const name = decodeURIComponent(invitado.replace(/\+/g, ' '));
         const nameEl = document.getElementById('guest-name');
         const wrapEl = document.getElementById('greeting-wrap');
         if (nameEl) {
-          nameEl.textContent = decodeURIComponent(invitado.replace(/\+/g, ' '));
+          nameEl.textContent = name;
           wrapEl?.classList.remove('hidden');
         }
+        // Pre-fill RSVP name field
+        const rsvpName = document.querySelector('#rsvp-form input[name="name"]') as HTMLInputElement;
+        if (rsvpName && !rsvpName.value) rsvpName.value = name;
       }
 
       // Music player
