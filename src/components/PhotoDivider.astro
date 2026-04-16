@@ -1,5 +1,5 @@
 ---
-// Photo divider — full-width image between content sections
+// Photo divider — parallax full-width image
 interface Props {
   src: string;
   alt?: string;
@@ -8,11 +8,46 @@ interface Props {
 const { src, alt = '', height = 'h-[50vh]' } = Astro.props;
 ---
 
-<div class={`relative ${height} overflow-hidden`}>
+<div class={`photo-divider relative ${height} overflow-hidden`}>
   <img
     src={src}
     alt={alt}
-    class="w-full h-full object-cover"
+    class="photo-divider-img absolute inset-0 w-full object-cover"
     loading="lazy"
+    style="height: 130%; top: -15%;"
   />
 </div>
+
+<script>
+  function initParallax() {
+    const dividers = document.querySelectorAll('.photo-divider');
+    
+    function updateParallax() {
+      dividers.forEach(div => {
+        const rect = div.getBoundingClientRect();
+        const vh = window.innerHeight;
+        
+        // Only animate when visible
+        if (rect.bottom < 0 || rect.top > vh) return;
+        
+        // Progress: 0 when entering bottom, 1 when leaving top
+        const progress = 1 - (rect.bottom / (vh + rect.height));
+        const img = div.querySelector('.photo-divider-img') as HTMLElement;
+        if (img) {
+          // Shift image 15% range based on scroll
+          const offset = (progress - 0.5) * 15;
+          img.style.transform = `translateY(${offset}%)`;
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParallax);
+  } else {
+    initParallax();
+  }
+</script>
