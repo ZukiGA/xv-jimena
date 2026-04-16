@@ -41,6 +41,24 @@ const pageUrl = `${Astro.site}`;
 
     <!-- Global animation styles (must not be scoped) -->
     <style is:global>
+      /* Dew drop — glass morphism water element */
+      .dew {
+        display: inline-block;
+        width: 8px;
+        height: 11px;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(167,211,243,0.4) 60%, rgba(10,80,160,0.15));
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08), inset 0 -1px 2px rgba(255,255,255,0.5);
+      }
+      .dew-sm {
+        width: 5px;
+        height: 7px;
+      }
+      .dew-dark {
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(167,211,243,0.3) 60%, rgba(10,80,160,0.2));
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15), inset 0 -1px 2px rgba(255,255,255,0.3);
+      }
+
       /* Scroll reveal */
       .reveal-section {
         opacity: 0;
@@ -325,8 +343,8 @@ const pageUrl = `${Astro.site}`;
         sections.forEach((s, i) => {
           if (i > 0 && i < sections.length - 1) {
             const hint = document.createElement('div');
-            hint.className = 'scroll-hint text-center py-3';
-            hint.innerHTML = '<svg class="w-4 h-4 mx-auto" style="color:rgba(192,192,192,0.3)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7"></path></svg>';
+            hint.className = 'scroll-hint text-center py-4';
+            hint.innerHTML = '<span class="dew" style="animation: gentlePulse 2s ease-in-out infinite;"></span>';
             s.after(hint);
           }
         });
