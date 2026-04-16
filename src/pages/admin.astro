@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dashboard — XV Jimena">
+  <section class="min-h-screen py-12 px-6 bg-[#0a1628]">
+    <div class="max-w-3xl mx-auto">
+      <!-- Auth -->
+      <div id="auth-gate" class="text-center py-20">
+        <h1 class="text-3xl font-light text-white mb-6">Dashboard</h1>
+        <p class="text-white/40 text-sm mb-6">Acceso solo para Bryan</p>
+        <input
+          id="pin-input"
+          type="password"
+          placeholder="PIN"
+          class="bg-white/10 border border-white/20 rounded-lg px-6 py-3 text-white text-center text-lg tracking-[0.5em] font-[Montserrat] focus:outline-none focus:border-white/40 w-32"
+          maxlength="4"
+        />
+      </div>
+
+      <!-- Dashboard content -->
+      <div id="dashboard" class="hidden">
+        <div class="flex items-center justify-between mb-8">
+          <h1 class="text-3xl font-light text-white">RSVPs</h1>
+          <button id="refresh-btn" class="text-white/40 hover:text-white text-sm font-[Montserrat] tracking-wider bg-transparent border border-white/20 rounded-full px-4 py-1.5 transition-all">
+            Actualizar
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-8">
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
+            <p id="stat-confirmed" class="text-3xl font-light text-emerald-400">—</p>
+            <p class="text-white/40 text-xs font-[Montserrat] tracking-wider mt-1">Confirmados</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
+            <p id="stat-guests" class="text-3xl font-light text-blue-400">—</p>
+            <p class="text-white/40 text-xs font-[Montserrat] tracking-wider mt-1">Total personas</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
+            <p id="stat-declined" class="text-3xl font-light text-red-400/60">—</p>
+            <p class="text-white/40 text-xs font-[Montserrat] tracking-wider mt-1">No pueden</p>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="px-4 py-3 text-white/40 text-xs font-[Montserrat] tracking-wider font-normal">Nombre</th>
+                <th class="px-4 py-3 text-white/40 text-xs font-[Montserrat] tracking-wider font-normal">#</th>
+                <th class="px-4 py-3 text-white/40 text-xs font-[Montserrat] tracking-wider font-normal hidden md:table-cell">Mensaje</th>
+                <th class="px-4 py-3 text-white/40 text-xs font-[Montserrat] tracking-wider font-normal">Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="rsvp-table">
+              <tr><td colspan="4" class="px-4 py-8 text-center text-white/20">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const PIN = '0725'; // July 25
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxIRuGWjZh2CJ8pFlOdjXq2W1OUpjv8muNa1H7TUTg_fJYrlSUcHcjStPo9YW-lVmqhkw/exec';
+
+  const pinInput = document.getElementById('pin-input') as HTMLInputElement;
+  const authGate = document.getElementById('auth-gate')!;
+  const dashboard = document.getElementById('dashboard')!;
+
+  // Check stored auth
+  if (sessionStorage.getItem('xv-admin') === '1') {
+    authGate.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    loadData();
+  }
+
+  pinInput?.addEventListener('input', () => {
+    if (pinInput.value === PIN) {
+      sessionStorage.setItem('xv-admin', '1');
+      authGate.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      loadData();
+    }
+  });
+
+  document.getElementById('refresh-btn')?.addEventListener('click', loadData);
+
+  async function loadData() {
+    try {
+      const res = await fetch(SHEET_URL + '?action=read');
+      const data = await res.json();
+
+      if (!data.rows) return;
+
+      const rows = data.rows as Array<{
+        name: string;
+        attendance: string;
+        guests: number;
+        message: string;
+        timestamp: string;
+      }>;
+
+      // Stats
+      const confirmed = rows.filter(r => r.attendance === 'yes');
+      const declined = rows.filter(r => r.attendance === 'no');
+      const totalGuests = confirmed.reduce((sum, r) => sum + (r.guests || 1), 0);
+
+      document.getElementById('stat-confirmed')!.textContent = String(confirmed.length);
+      document.getElementById('stat-guests')!.textContent = String(totalGuests);
+      document.getElementById('stat-declined')!.textContent = String(declined.length);
+
+      // Table
+      const tbody = document.getElementById('rsvp-table')!;
+      if (rows.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-white/20">Sin respuestas aún</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = rows.reverse().map(r => {
+        const statusColor = r.attendance === 'yes' ? 'text-emerald-400' : 'text-red-400/60';
+        const statusDot = r.attendance === 'yes' ? '●' : '○';
+        const date = r.timestamp ? new Date(r.timestamp).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }) : '';
+        const msg = r.message || '';
+        return `
+          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+            <td class="px-4 py-3 text-white/80 text-sm">
+              <span class="${statusColor} mr-2">${statusDot}</span>${r.name || 'Sin nombre'}
+            </td>
+            <td class="px-4 py-3 text-white/50 text-sm">${r.attendance === 'yes' ? (r.guests || 1) : '—'}</td>
+            <td class="px-4 py-3 text-white/30 text-sm hidden md:table-cell truncate max-w-[200px]">${msg}</td>
+            <td class="px-4 py-3 text-white/30 text-xs">${date}</td>
+          </tr>
+        `;
+      }).join('');
+
+    } catch (err) {
+      document.getElementById('rsvp-table')!.innerHTML =
+        '<tr><td colspan="4" class="px-4 py-8 text-center text-red-400/60">Error al cargar datos</td></tr>';
+    }
+  }
+</script>
