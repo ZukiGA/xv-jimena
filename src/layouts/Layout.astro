@@ -73,6 +73,54 @@ const pageUrl = `${Astro.site}`;
         animation: gentlePulse 2s ease-in-out infinite;
       }
 
+      /* 1. Staggered text reveal for section titles */
+      .stagger-word {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+      .revealed .stagger-word {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* 2. Countdown flip */
+      @keyframes countUp {
+        0% { transform: translateY(20px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+      .count-flip {
+        display: inline-block;
+        animation: countUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* 3. Button micro-feedback */
+      .btn-press {
+        transition: transform 0.1s ease;
+      }
+      .btn-press:active {
+        transform: scale(0.97);
+      }
+
+      /* 4. Card shimmer */
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .glass-card {
+        position: relative;
+        overflow: hidden;
+      }
+      .glass-card.shimmer::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        animation: shimmer 0.8s ease forwards;
+        pointer-events: none;
+      }
+
       @keyframes dropFall {
         0% { transform: translateY(-100vh); opacity: 0; }
         10% { opacity: 0.7; }
@@ -328,9 +376,62 @@ const pageUrl = `${Astro.site}`;
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initScrollReveal);
       } else {
-        // Small delay to ensure all components are rendered
         requestAnimationFrame(initScrollReveal);
       }
+
+      // === MICRO-ANIMATIONS ===
+
+      // 1. Staggered text reveal — wrap h2 words in spans
+      function initStaggerText() {
+        document.querySelectorAll('section h2, footer h2').forEach(h2 => {
+          const text = h2.textContent?.trim();
+          if (!text) return;
+          h2.innerHTML = text.split(' ').map((word, i) =>
+            `<span class="stagger-word" style="transition-delay:${i * 80}ms">${word}</span>`
+          ).join(' ');
+        });
+      }
+      initStaggerText();
+
+      // 2. Countdown flip — animate number changes
+      const countEls = ['days', 'hours', 'minutes', 'seconds'];
+      const prevValues = {};
+      const origUpdate = window.setInterval;
+      new MutationObserver((mutations) => {
+        mutations.forEach(m => {
+          const el = m.target;
+          const id = el.id || el.parentElement?.id;
+          if (countEls.includes(id)) {
+            const newVal = el.textContent;
+            if (prevValues[id] !== newVal && newVal !== '--') {
+              el.classList.remove('count-flip');
+              void el.offsetWidth; // force reflow
+              el.classList.add('count-flip');
+              prevValues[id] = newVal;
+            }
+          }
+        });
+      }).observe(document.getElementById('countdown-timer') || document.body, {
+        subtree: true, characterData: true, childList: true
+      });
+
+      // 3. Button micro-feedback — add to all interactive elements
+      document.querySelectorAll('a, button').forEach(el => {
+        el.classList.add('btn-press');
+      });
+
+      // 4. Card shimmer — trigger on reveal
+      const shimmerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('shimmer');
+            shimmerObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('.glass-card').forEach(card => {
+        shimmerObserver.observe(card);
+      });
     </script>
   </body>
 </html>
