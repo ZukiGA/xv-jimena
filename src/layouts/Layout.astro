@@ -459,6 +459,29 @@ const pageUrl = `${Astro.site}`;
       window.addEventListener('scroll', updateParallax, { passive: true });
       updateParallax();
 
+      // === HAPTIC FEEDBACK ===
+      const vibrate = (ms: number | number[]) => navigator.vibrate?.(ms);
+
+      // Buttons/links — light tap
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('touchstart', () => vibrate(8), { passive: true });
+      });
+
+      // RSVP submit — success pattern
+      const rsvpForm = document.getElementById('rsvp-form');
+      rsvpForm?.addEventListener('submit', () => {
+        setTimeout(() => vibrate([15, 50, 15, 50, 30]), 500);
+      });
+
+      // Lightbox open — medium tap
+      document.querySelectorAll('[data-gallery-index]').forEach(el => {
+        el.addEventListener('touchstart', () => vibrate(12), { passive: true });
+      });
+
+      // Lightbox swipe — soft tick
+      const lb = document.getElementById('lightbox');
+      lb?.addEventListener('touchend', () => vibrate(5), { passive: true });
+
       // === MICRO-ANIMATIONS ===
 
       // 1. Staggered text reveal — wrap h2 words in spans
