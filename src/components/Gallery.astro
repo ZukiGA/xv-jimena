@@ -8,8 +8,7 @@
 
     <div class="grid grid-cols-2 gap-3 max-w-lg mx-auto">
       {Array.from({ length: 10 }).map((_, i) => {
-        const positions: Record<number, string> = { 3: 'object-top' };
-        const pos = positions[i + 1] || '';
+        const pos = (i + 1) === 3 ? 'object-top' : '';
         return (
           <div class="gallery-slot aspect-[3/4] rounded-lg overflow-hidden">
             <img
