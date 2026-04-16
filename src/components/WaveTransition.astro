@@ -1,0 +1,23 @@
+---
+// WaveTransition — SVG water wave between sections
+interface Props {
+  flip?: boolean;
+  color?: string;
+}
+const { flip = false, color = '#ffffff' } = Astro.props;
+---
+
+<div class={`wave-transition w-full overflow-hidden leading-none ${flip ? 'rotate-180' : ''}`} style={`margin-top: -1px; margin-bottom: -1px;`}>
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" class="w-full h-[30px] md:h-[50px]">
+    <path
+      d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z"
+      fill={color}
+      opacity="0.6"
+    />
+    <path
+      d="M0,35 C300,55 500,10 700,35 C900,55 1100,15 1200,35 L1200,60 L0,60 Z"
+      fill={color}
+      opacity="0.3"
+    />
+  </svg>
+</div>

@@ -42,6 +42,15 @@ const pageUrl = `${Astro.site}`;
     <!-- Global animation styles (must not be scoped) -->
     <style is:global>
       /* Dew drop — glass morphism water element */
+      :root {
+        --dew-opacity: 0.4;
+        --hero-saturate: saturate(1);
+      }
+
+      #hero-bg {
+        filter: var(--hero-saturate);
+      }
+
       .dew {
         display: inline-block;
         width: 8px;
@@ -49,6 +58,21 @@ const pageUrl = `${Astro.site}`;
         background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(167,211,243,0.4) 60%, rgba(10,80,160,0.15));
         border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
         box-shadow: 0 1px 3px rgba(0,0,0,0.08), inset 0 -1px 2px rgba(255,255,255,0.5);
+        opacity: var(--dew-opacity);
+      }
+
+      /* Event day — everything glows */
+      .event-day .dew {
+        box-shadow: 0 0 8px rgba(167,211,243,0.6), 0 1px 3px rgba(0,0,0,0.08), inset 0 -1px 2px rgba(255,255,255,0.5);
+        animation: eventGlow 2s ease-in-out infinite;
+      }
+      .event-day .hero-dew {
+        animation: dewFloat 3s ease-in-out infinite !important;
+        opacity: 0.8 !important;
+      }
+      @keyframes eventGlow {
+        0%, 100% { box-shadow: 0 0 8px rgba(167,211,243,0.4), 0 1px 3px rgba(0,0,0,0.08); }
+        50% { box-shadow: 0 0 16px rgba(167,211,243,0.8), 0 1px 3px rgba(0,0,0,0.08); }
       }
       .dew-sm {
         width: 5px;
@@ -242,6 +266,21 @@ const pageUrl = `${Astro.site}`;
       });
 
       // Water drops animation
+      // === EVENT PROXIMITY — page intensifies as date approaches ===
+      const eventDate = new Date('2026-07-25T14:00:00-05:00').getTime();
+      const launchDate = new Date('2026-04-16').getTime();
+      const totalSpan = eventDate - launchDate;
+      const now = Date.now();
+      const proximity = Math.max(0, Math.min(1, (now - launchDate) / totalSpan)); // 0=launch, 1=event day
+      const isEventDay = now >= eventDate && now < eventDate + 86400000;
+
+      // Scale rain frequency: 2000ms at launch → 600ms on event day
+      const rainInterval = Math.round(2000 - proximity * 1400);
+      // Scale dew brightness
+      document.documentElement.style.setProperty('--dew-opacity', String(0.4 + proximity * 0.6));
+      // Scale hero saturation
+      document.documentElement.style.setProperty('--hero-saturate', `saturate(${1 + proximity * 0.5})`);
+
       function createDrop() {
         const drop = document.createElement('div');
         drop.classList.add('water-drop');
@@ -251,9 +290,13 @@ const pageUrl = `${Astro.site}`;
         document.body.appendChild(drop);
         setTimeout(() => drop.remove(), 12000);
       }
-      // Create drops periodically — slow, deliberate
-      setInterval(createDrop, 2000);
+      setInterval(createDrop, rainInterval);
       for (let i = 0; i < 3; i++) setTimeout(createDrop, i * 600);
+
+      // Event day explosion
+      if (isEventDay) {
+        document.documentElement.classList.add('event-day');
+      }
 
       // Ripple on tap/click
       function doRipple(x: number, y: number) {
