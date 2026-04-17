@@ -50,6 +50,10 @@
       📝 Copiar mensaje completo
     </button>
 
+    <button class="btn" id="print-btn" disabled style="background:#6b5b95">
+      🖨️ Invitación impresa
+    </button>
+
     <div class="preview" id="preview" style="display:none">
       <div class="preview-label">Vista previa del saludo:</div>
       <div class="preview-text">"Querido(a) <span id="preview-name"></span>, estás invitado(a)"</div>
@@ -64,12 +68,13 @@
   </div>
 
   <script>
-    const BASE = 'https://zukiga.github.io/';
+    const BASE = 'https://jimenaxv.com/';
     const input = document.getElementById('name-input');
     const output = document.getElementById('link-output');
     const copyBtn = document.getElementById('copy-btn');
     const waBtn = document.getElementById('wa-btn');
     const copyMsgBtn = document.getElementById('copy-msg-btn');
+    const printBtn = document.getElementById('print-btn');
     const preview = document.getElementById('preview');
     const previewName = document.getElementById('preview-name');
 
@@ -89,6 +94,7 @@
         copyBtn.disabled = false;
         waBtn.disabled = false;
         copyMsgBtn.disabled = false;
+        printBtn.disabled = false;
         preview.style.display = 'block';
         previewName.textContent = name;
       } else {
@@ -96,6 +102,7 @@
         copyBtn.disabled = true;
         waBtn.disabled = true;
         copyMsgBtn.disabled = true;
+        printBtn.disabled = true;
         preview.style.display = 'none';
       }
     });
@@ -130,6 +137,11 @@
       const link = makeLink(name);
       const msg = makeMessage(name, link);
       window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    });
+
+    printBtn.addEventListener('click', () => {
+      const name = input.value.trim();
+      window.open('/imprimir?n=' + encodeURIComponent(name), '_blank');
     });
 
     // Batch generation
