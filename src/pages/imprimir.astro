@@ -257,35 +257,21 @@
 
     <div class="qr-section">
       <div class="qr-placeholder">
-        <canvas id="qr-canvas" width="56" height="56"></canvas>
+        <img id="qr-img" width="56" height="56" alt="QR" style="display:block;" />
       </div>
       <p class="qr-label">jimenaxv.com</p>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <script>
     function getGuestParam() {
       const params = new URLSearchParams(window.location.search);
       return params.get('n') || '';
     }
 
-    function generateQR(url) {
-      const qr = qrcode(0, 'M');
-      qr.addData(url);
-      qr.make();
-      const canvas = document.getElementById('qr-canvas');
-      const ctx = canvas.getContext('2d');
-      const size = 56;
-      const modules = qr.getModuleCount();
-      const cellSize = size / modules;
-      ctx.clearRect(0, 0, size, size);
-      for (let row = 0; row < modules; row++) {
-        for (let col = 0; col < modules; col++) {
-          ctx.fillStyle = qr.isDark(row, col) ? '#0a2540' : 'transparent';
-          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
-        }
-      }
+    function updateQR(url) {
+      const img = document.getElementById('qr-img');
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&color=0a2540&bgcolor=ffffff&data=' + encodeURIComponent(url);
     }
 
     function updateName(name) {
@@ -295,10 +281,10 @@
       if (n) {
         display.textContent = n;
         line.style.display = 'block';
-        generateQR('https://jimenaxv.com/?n=' + encodeURIComponent(n));
+        updateQR('https://jimenaxv.com/?n=' + encodeURIComponent(n));
       } else {
         line.style.display = 'none';
-        generateQR('https://jimenaxv.com');
+        updateQR('https://jimenaxv.com');
       }
     }
 
