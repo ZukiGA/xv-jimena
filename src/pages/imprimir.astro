@@ -1,0 +1,358 @@
+---
+// Printable invitation — 5x7 inches
+---
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Invitación — XV Años de Jimena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a2e;
+      font-family: 'Cormorant Garamond', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    /* Controls — hidden on print */
+    .controls {
+      margin-bottom: 30px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .controls input {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      width: 250px;
+    }
+    .controls input::placeholder { color: rgba(255,255,255,0.3); }
+    .controls input:focus { outline: none; border-color: rgba(255,255,255,0.4); }
+    .controls button {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+    }
+    .controls button:hover { background: rgba(255,255,255,0.25); }
+
+    /* Card */
+    .card {
+      width: 5in;
+      height: 7in;
+      background: linear-gradient(170deg, #0a1628 0%, #0f2140 30%, #0a1628 70%, #061020 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* Subtle water texture overlay */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(167,211,243,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(167,211,243,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, rgba(192,192,192,0.03) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    /* Border frame */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(192,192,192,0.15);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Dew drops */
+    .dew-print {
+      width: 6px;
+      height: 9px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(167,211,243,0.4) 60%, rgba(10,80,160,0.2));
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      display: inline-block;
+    }
+
+    .silvermist-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(192,192,192,0.5);
+      margin-bottom: 6px;
+    }
+
+    .sep {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .sep-line {
+      width: 30px;
+      height: 1px;
+      background: rgba(192,192,192,0.3);
+    }
+
+    .guest-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 40px;
+    }
+
+    .main-name {
+      font-size: 72px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 20px rgba(167,211,243,0.2);
+    }
+
+    .xv-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 0.5em;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 50px;
+    }
+
+    .date-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 6px;
+    }
+
+    .venue-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 4px;
+    }
+
+    .details-block {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .detail-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(192,192,192,0.4);
+      margin-bottom: 3px;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .details-row {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 35px;
+    }
+
+    .qr-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qr-placeholder {
+      width: 60px;
+      height: 60px;
+      border: 1px solid rgba(192,192,192,0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .qr-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .blue-note {
+      font-size: 11px;
+      font-style: italic;
+      color: rgba(167,211,243,0.5);
+      margin-top: 8px;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        margin: 0;
+      }
+      .controls { display: none !important; }
+      .card {
+        box-shadow: none;
+        border-radius: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      @page {
+        size: 5in 7in;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls" id="controls">
+    <input type="text" id="name-input" placeholder="Nombre del invitado" />
+    <button onclick="updateName()">Actualizar</button>
+    <button onclick="window.print()">🖨️ Imprimir</button>
+  </div>
+
+  <div class="card">
+    <!-- Top: Silvermist -->
+    <div style="position: absolute; top: 30px; text-align: center;">
+      <div class="sep">
+        <span class="sep-line"></span>
+        <span class="dew-print"></span>
+        <span class="sep-line"></span>
+      </div>
+      <p class="silvermist-label">Silvermist</p>
+    </div>
+
+    <!-- Guest name -->
+    <p class="guest-name" id="guest-line" style="display: none;">
+      <span id="guest-display"></span>, estás invitada(o)
+    </p>
+
+    <!-- Main -->
+    <h1 class="main-name">Jimena</h1>
+    <p class="xv-label">XV</p>
+
+    <!-- Details -->
+    <div class="details-row">
+      <div class="details-block">
+        <p class="detail-label">Misa</p>
+        <p class="detail-value">2:00 PM</p>
+        <p class="venue-text" style="margin-top: 4px;">Iglesia de Santo Tomás</p>
+      </div>
+      <div class="details-block">
+        <p class="detail-label">Recepción</p>
+        <p class="detail-value">4:00 PM</p>
+        <p class="venue-text" style="margin-top: 4px;">Salón Jardín El Carmen</p>
+      </div>
+    </div>
+
+    <!-- Date & location -->
+    <p class="date-text">25 · 07 · 2026</p>
+    <p class="venue-text">Santo Tomás Hueyotlipan, Puebla</p>
+
+    <!-- Blue note -->
+    <p class="blue-note">El azul es mi color ese día 💧</p>
+
+    <!-- Bottom: QR -->
+    <div style="position: absolute; bottom: 25px;" class="qr-section">
+      <div class="qr-placeholder" id="qr-code">
+        <canvas id="qr-canvas" width="56" height="56"></canvas>
+      </div>
+      <p class="qr-label">jimenaxv.com</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script>
+    function getGuestParam() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('n') || '';
+    }
+
+    function generateQR(url) {
+      const qr = qrcode(0, 'M');
+      qr.addData(url);
+      qr.make();
+
+      const canvas = document.getElementById('qr-canvas');
+      const ctx = canvas.getContext('2d');
+      const size = 56;
+      const modules = qr.getModuleCount();
+      const cellSize = size / modules;
+
+      ctx.clearRect(0, 0, size, size);
+
+      for (let row = 0; row < modules; row++) {
+        for (let col = 0; col < modules; col++) {
+          ctx.fillStyle = qr.isDark(row, col)
+            ? 'rgba(192,192,192,0.8)'
+            : 'transparent';
+          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    function updateName(name) {
+      const n = name || document.getElementById('name-input').value.trim();
+      const line = document.getElementById('guest-line');
+      const display = document.getElementById('guest-display');
+
+      if (n) {
+        display.textContent = n;
+        line.style.display = 'block';
+        const url = 'https://jimenaxv.com/?n=' + encodeURIComponent(n);
+        generateQR(url);
+      } else {
+        line.style.display = 'none';
+        generateQR('https://jimenaxv.com');
+      }
+    }
+
+    // Init from URL param
+    const initial = getGuestParam();
+    if (initial) {
+      document.getElementById('name-input').value = initial;
+    }
+    updateName(initial || '');
+  </script>
+
+</body>
+</html>
