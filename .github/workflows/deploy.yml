@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      - run: npm i @rollup/rollup-linux-x64-gnu lightningcss-linux-x64-gnu || true
       - run: npx astro build
       - uses: actions/upload-pages-artifact@v3
         with:
