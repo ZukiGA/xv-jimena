@@ -66,7 +66,7 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   const PIN = '0725'; // July 25
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxIRuGWjZh2CJ8pFlOdjXq2W1OUpjv8muNa1H7TUTg_fJYrlSUcHcjStPo9YW-lVmqhkw/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAMr08zvPHSAFa4F7aCHKUMch1TnhwmZUenRSAdKI5sMyP1NEkVLM9Dx-BlnqFDNgC/exec';
 
   const pinInput = document.getElementById('pin-input') as HTMLInputElement;
   const authGate = document.getElementById('auth-gate')!;
@@ -97,18 +97,21 @@ import Layout from '../layouts/Layout.astro';
 
       if (!data.rows) return;
 
-      const rows = data.rows as Array<{
-        name: string;
-        attendance: string;
-        guests: number;
-        message: string;
-        timestamp: string;
-      }>;
+      // Map keys dynamically (sheet headers are data values)
+      const keys = data.rows.length > 0 ? Object.keys(data.rows[0]) : [];
+      const nameKey = keys.find(k => k === 'bryan') || keys[0] || 'name';
+      const attKey = keys.find(k => k === 'yes') || keys[1] || 'attendance';
+      const guestKey = keys.find(k => k === '1') || keys[2] || 'guests';
+      const msgKey = keys.find(k => k === 'pulgamaru') || keys[3] || 'message';
+      const tsKeys = keys.filter(k => k !== nameKey && k !== attKey && k !== guestKey && k !== msgKey);
+      const tsKey = tsKeys[0] || 'timestamp';
+
+      const rows = data.rows as Array<Record<string, any>>;
 
       // Stats
-      const confirmed = rows.filter(r => r.attendance === 'yes');
-      const declined = rows.filter(r => r.attendance === 'no');
-      const totalGuests = confirmed.reduce((sum, r) => sum + (r.guests || 1), 0);
+      const confirmed = rows.filter(r => r[attKey] === 'yes');
+      const declined = rows.filter(r => r[attKey] === 'no');
+      const totalGuests = confirmed.reduce((sum, r) => sum + (Number(r[guestKey]) || 1), 0);
 
       document.getElementById('stat-confirmed')!.textContent = String(confirmed.length);
       document.getElementById('stat-guests')!.textContent = String(totalGuests);
@@ -122,16 +125,17 @@ import Layout from '../layouts/Layout.astro';
       }
 
       tbody.innerHTML = rows.reverse().map(r => {
-        const statusColor = r.attendance === 'yes' ? 'text-emerald-400' : 'text-red-400/60';
-        const statusDot = r.attendance === 'yes' ? '●' : '○';
-        const date = r.timestamp ? new Date(r.timestamp).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }) : '';
-        const msg = r.message || '';
+        const att = r[attKey];
+        const statusColor = att === 'yes' ? 'text-emerald-400' : 'text-red-400/60';
+        const statusDot = att === 'yes' ? '●' : '○';
+        const date = r[tsKey] ? new Date(r[tsKey]).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }) : '';
+        const msg = r[msgKey] || '';
         return `
           <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
             <td class="px-4 py-3 text-white/80 text-sm">
-              <span class="${statusColor} mr-2">${statusDot}</span>${r.name || 'Sin nombre'}
+              <span class="${statusColor} mr-2">${statusDot}</span>${r[nameKey] || 'Sin nombre'}
             </td>
-            <td class="px-4 py-3 text-white/50 text-sm">${r.attendance === 'yes' ? (r.guests || 1) : '—'}</td>
+            <td class="px-4 py-3 text-white/50 text-sm">${att === 'yes' ? (Number(r[guestKey]) || 1) : '—'}</td>
             <td class="px-4 py-3 text-white/30 text-sm hidden md:table-cell truncate max-w-[200px]">${msg}</td>
             <td class="px-4 py-3 text-white/30 text-xs">${date}</td>
           </tr>

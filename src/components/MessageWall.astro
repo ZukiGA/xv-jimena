@@ -32,7 +32,7 @@
 </style>
 
 <script>
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxIRuGWjZh2CJ8pFlOdjXq2W1OUpjv8muNa1H7TUTg_fJYrlSUcHcjStPo9YW-lVmqhkw/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAMr08zvPHSAFa4F7aCHKUMch1TnhwmZUenRSAdKI5sMyP1NEkVLM9Dx-BlnqFDNgC/exec';
 
   async function loadMessages() {
     const container = document.getElementById('wall-messages')!;
@@ -44,8 +44,15 @@
       if (!data.rows) return;
 
       // Filter only confirmed with a message
+      // Sheet columns: name, attendance, guests, message, timestamp
+      // Headers are data values so we map by key order
+      const keys = data.rows.length > 0 ? Object.keys(data.rows[0]) : [];
+      const nameKey = keys.find(k => k === 'bryan') || keys[0] || 'name';
+      const attKey = keys.find(k => k === 'yes') || keys[1] || 'attendance';
+      const msgKey = keys.find(k => k === 'pulgamaru') || keys[3] || 'message';
+
       const messages = data.rows.filter((r: any) =>
-        r.attendance === 'yes' && r.message && r.message.trim()
+        r[attKey] === 'yes' && r[msgKey] && String(r[msgKey]).trim()
       );
 
       if (messages.length === 0) {
@@ -55,8 +62,8 @@
 
       container.innerHTML = messages.map((r: any, i: number) => `
         <div class="msg-bubble" style="animation-delay: ${i * 0.1}s">
-          <p class="text-[#0a2540]/80 text-sm leading-relaxed">"${r.message}"</p>
-          <p class="text-[#0a2540]/30 text-xs font-[Montserrat] tracking-wider mt-2">— ${r.name || 'Anónimo'}</p>
+          <p class="text-[#0a2540]/80 text-sm leading-relaxed">"${r[msgKey]}"</p>
+          <p class="text-[#0a2540]/30 text-xs font-[Montserrat] tracking-wider mt-2">— ${r[nameKey] || 'Anónimo'}</p>
         </div>
       `).join('');
 
