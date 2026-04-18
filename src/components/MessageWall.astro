@@ -63,7 +63,6 @@
       container.innerHTML = messages.map((r: any, i: number) => `
         <div class="msg-bubble" style="animation-delay: ${i * 0.1}s">
           <p class="text-[#0a2540]/80 text-sm leading-relaxed">"${r[msgKey]}"</p>
-          <p class="text-[#0a2540]/30 text-xs font-[Montserrat] tracking-wider mt-2">— ${r[nameKey] || 'Anónimo'}</p>
         </div>
       `).join('');
 
